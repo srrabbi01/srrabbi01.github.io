@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3</title>
+    <link rel="stylesheet" href="https://unpkg.com/cirrus-ui@0.6.3/dist/cirrus.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.css">
+</head>
+
+<body>
+    <div class="hero fullscreen bg-teal-500">
+        <div class="hero-body u-flex-column u-justify-center u-text-center">
+            <div class="content bg-gray-000 p-2 w-100  u-round">
+                <div class="mx-auto">
+                    <h2 class="uppercase mb-2">Number Guessing Game !</h2>
+                    <div class="divider"></div>
+                    <!-- <h1 class="my-4 headline-1">?</h1> -->
+                    <h3 class="subtitle mb-3 text-gray-700">Choose a number between 1 to 10</h3>
+                    <h6 class="text-gray-700">You will get 3 chance to win this game</h6>
+                </div>
+                <div class="mx-auto">
+                    <input type="text" name="" id="u-input" class="my-3" placeholder="?">
+                    <h6>Your chance remaining : <span id="chance">3</span></h6>
+                    <p id="hint"></p>
+                </div>
+                <div class="mx-auto">
+                    <button id="guess-btn" class="btn-info font-semibold">Guess the Number</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        input[type=text] {
+            font-size: 2rem !important;
+            width: 5rem !important;
+            height: 5rem !important;
+            text-align: center !important;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.5/dist/sweetalert2.all.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>

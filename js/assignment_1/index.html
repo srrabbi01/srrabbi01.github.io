@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1</title>
+    <link rel="stylesheet" href="https://unpkg.com/cirrus-ui@0.6.3/dist/cirrus.min.css">
+    <style>
+        .fullscreen {
+            min-height: 100vh !important;
+            height: auto !important;
+        }
+
+        .content {
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-size: 1.15rem;
+            margin-bottom: 0 !important;
+        }
+
+        .subtitle {
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-light fullscreen py-5">
+        <div class="u-center w-100">
+            <h2 class="w-100 u-text-center">Product list with shopping cart</h2>
+            <div class="card px-3 py-1 m-2" style="max-width: 300px;">
+                <img class="w-80 u-center" src="./nOFet9u.jpg" alt="sdrfgsf">
+                <div class="content w-90">
+                    <p class="title">XRD Active Shoes</p>
+                    <span class="subtitle">$1,999.99</span>
+                </div>
+                <div class="u-text-right">
+                    <button class="btn-info btn-small add-item" id="prod1">add to cart</button>
+                </div>
+            </div>
+            <div class="card px-3 py-1 m-2" style="max-width: 300px;">
+                <img class="w-80 u-center" src="./VY0R9aV.png" alt="sdrfgsf">
+                <div class="content w-90">
+                    <p class="title">Hygen Smart watch</p>
+                    <span class="subtitle">$554.59</span>
+                </div>
+                <div class="u-text-right">
+                    <button class="btn-info btn-small add-item" id="prod2">add to cart</button>
+                </div>
+            </div>
+            <div class="card px-3 py-1 m-2" style="max-width: 300px;">
+                <img class="w-80 u-center" src="./OdRSpXG.jpg" alt="sdrfgsf">
+                <div class="content w-90">
+                    <p class="title">Dell XPS Surface</p>
+                    <span class="subtitle">$899.56</span>
+                </div>
+                <div class="u-text-right">
+                    <button class="btn-info btn-small add-item" id="prod3">add to cart</button>
+                </div>
+            </div>
+            <div class="card px-3 py-1 m-2" style="max-width: 300px;">
+                <img class="w-80 u-center" src="./QQwcBpF.png" alt="sdrfgsf">
+                <div class="content w-90">
+                    <p class="title">Xps smart watch 5.0</p>
+                    <span class="subtitle">$350.50</span>
+                </div>
+                <div class="u-text-right">
+                    <button class="btn-info btn-small add-item" id="prod4">add to cart</button>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="divider"></div>
+            <div class="responsive  u-overflow-x-auto">
+                <table class="table borderless card cart-table">
+                    <thead>
+                        <tr>
+                            <th title="Title1">Product</th>
+                            <th title="Title3">Quantity</th>
+                            <th title="Title2">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+
+</html>
