@@ -47,7 +47,9 @@ function removeItemFunc() {
     document.querySelectorAll('.remove-item').forEach(function (removeBtn) {
         removeBtn.addEventListener('click', function () {
             let selectedRow = this.parentElement.parentElement
-            selectedRow.parentElement.removeChild(selectedRow)
+            // selectedRow.remove()
+            if (selectedRow.parentElement)
+                selectedRow.parentElement.removeChild(selectedRow)
         })
     })
 }
