@@ -1,0 +1,3 @@
+{% for video in video_qs %}
+<a href="{% url 'videoDetails' pk=video.id %}" class="list-group-item list-group-item-action">{{video.title}}</a>
+{% endfor %}
