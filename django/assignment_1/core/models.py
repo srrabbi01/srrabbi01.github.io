@@ -1,3 +1,4 @@
+from tokenize import blank_re
 from django.urls import reverse
 from django.db import models
 
@@ -16,6 +17,7 @@ class Video(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_NULL,null=True)
     runtime = models.CharField(max_length=255,null=True)
     tviews = models.IntegerField(null=True)
+    thumbnail = models.ImageField(upload_to='thumbnails/',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f'{self.title}'

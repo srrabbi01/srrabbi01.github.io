@@ -1,0 +1,157 @@
+{% extends 'app_dashboard/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Update Quiz{% endblock title%}
+{% block wrapper %}
+<div class="container bg-white p-10 rounded-md">
+    <h2 class="text-2xl font-bold mb-8 border-b">Update Quiz</h2>
+    <form action="" method="post" class="quiz-container w-2/4">
+        {% csrf_token %}
+        <label for="quiztitle" class="text-xl">Quiz Title</label>
+        <div class="flex items-end">
+            <input type="text" name="quiztitle" class="form-field-2" placeholder="Type Quiz title" id="quiztitle"
+                value="{{quizObj.title}}" required>
+            <div class=" input-check ml-10 flex items-center">
+                <input type="checkbox" name="quizactive" id="quizactive" class="form-check-input checkbox-1"
+                    {% if quizObj.active %} checked {% endif %}>
+                <label for="quizactive" class="inline-block">Active</label>
+            </div>
+        </div>
+        <div class="flex justify-start items-start flex-col">
+            <div class="my-5 flex items-center justify-end w-full">
+                <label for="" class="">Add question</label>
+                <button class="add_ques_button cta cta-primary ml-2">Add</button>
+            </div>
+            <div class="bg-white rounded-lg text-gray-900 questions w-full mb-10" data-lansid={{lastAnswerId}}>
+                {% for question in quizObj.quizqs.all %}
+                {% if question %}
+                <div class="question mb-5" data-quesid="{{question.id}}" id="question{{question.id}}">
+                    <div class="relative flex items-end w-full mb-4">
+                        <input type="text" name="ques={{question.id}}"
+                            class="form-control relative flex-auto form-field-2 inline-block"
+                            placeholder="Type Quiz Question" required value="{{question.text}}">
+                        <button class="cta cta-danger ml-5" hx-target="#question{{question.id}}"
+                            hx-post="{% url 'delete_ques' pk=question.id %}" hx-swap="delete"
+                            hx-confirm="Are you sure you wish to delete this question ?">&times;</button>
+                    </div>
+                    <div class="my-5 flex items-center justify-end">
+                        <label for="" class="">Add answer</label>
+                        <button class="add_qans_button cta cta-primary ml-2">Add</button>
+                    </div>
+                    <div class="answers relative pl-10">
+                        {% for answer in question.qsans.all %}
+                        {% if answer %}
+                        <div class="answer flex items-center mb-5" data-ansid={{answer.id}}
+                            data-quesid="{{question.id}}" id="answer{{answer.id}}">
+                            <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
+                                name="iscorrect&qans={{answer.id}}&ques={{question.id}}" {% if answer.is_correct %}
+                                checked {% endif %}>
+                            <input type="text" name="qans={{answer.id}}&ques={{question.id}}" id="" class="form-field-2"
+                                placeholder="Type answer" required value="{{answer.text}}">
+                            <button hx-target="#answer{{answer.id}}" hx-swap="delete" class="cta cta-danger ml-5"
+                                hx-post="{% url 'delete_qans' pk=answer.id %}"
+                                hx-confirm="Are you sure you wish to delete this answer ?">&times;</button>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="btn py-1 px-2">Submit</button>
+    </form>
+</div>
+{% endblock wrapper %}
+
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let addQuesButton = $('.add_ques_button');
+        let questions = $('.questions');
+        let lastQuestionId
+        let newAnswerId
+
+        $(addQuesButton).click(function (e) {
+            e.preventDefault();
+
+            question = $(this).parents('div').next('.questions')
+            lastQuestionId = question.children('.question').last().data('quesid')
+            lastAnswerId = parseInt(questions.attr('data-lansid'))
+
+            newQuestionId = lastQuestionId + 1
+            newAnswerId = lastAnswerId + 1
+
+            var fieldQuesHTML =
+                `<div class="question mb-5" data-quesid=${newQuestionId}>
+                      <div class=" relative flex items-end w-full mb-4">
+                          <input type="text" name="ques=${newQuestionId}"
+                              class="form-control relative flex-auto form-field-2 inline-block"
+                              placeholder="Type Quiz Question" required>
+                          <button
+                              class="remove_ques_button cta cta-danger ml-2">remove</button>
+                      </div>
+                        <div class="my-5 flex items-center justify-end">
+                            <label for="" class="">Add answer</label>
+                            <button class="add_qans_button cta cta-primary ml-2">Add</button>
+                        </div>
+                        <div class="answers relative pl-10">
+                            <div class="answer flex items-center mb-5" data-ansid=1 data-quesid=${newQuestionId}>
+                                <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
+                                    name="iscorrect&qans=${newAnswerId}&ques=${newQuestionId}">
+                                <input type="text" name="qans=${newAnswerId}&ques=${newQuestionId}" id=""
+                                    class="form-field-2"
+                                    placeholder="Type answer" required>
+                            </div>
+                        </div>
+                    </div>`
+            $(questions).append(fieldQuesHTML);
+            questions.attr('data-lansid', newAnswerId)
+        });
+
+
+
+        //Once remove button is clicked
+        $(questions).on('click', '.remove_ques_button', function (e) {
+            e.preventDefault();
+            // $(this).parents('.question').remove(); //Remove field html
+            console.log($(this).parents('.question').attr('data-quesid'))
+        });
+
+
+
+        //Once add button is clicked
+        $(document).on('click', '.add_qans_button', function (e) {
+            e.preventDefault();
+            answers = $(this).parent('div').next('.answers')
+            lastAnswerId = parseInt(questions.attr('data-lansid'))
+            lastQuestionId = parseInt(answers.children('.answer').last().attr('data-quesid'))
+            newAnswerId = lastAnswerId + 1
+
+            var fieldAnsHTML =
+                `<div class="answer flex items-center mb-5" data-ansid="${newAnswerId}"
+                        data-quesid="${lastQuestionId}">
+                                <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
+                                    name="iscorrect&qans=${newAnswerId}&ques=${lastQuestionId}">
+                                <input type="text" name="qans=${newAnswerId}&ques=${lastQuestionId}" id=""
+                                    class="form-field-2"
+                                    placeholder="Type answer" required>
+                                <button class="remove_qans_button cta cta-danger ml-2">remove</button>
+                        </div>`
+            answers.append(fieldAnsHTML)
+            questions.attr('data-lansid', newAnswerId)
+        });
+
+
+
+        $(document).on('click', '.remove_qans_button', function (e) {
+            e.preventDefault();
+            // $(this).parents('.answer').remove(); //Remove field html
+            console.log($(this).parents('.answer').attr('data-ansid'))
+        });
+
+    });
+</script>
+{% endblock script %}

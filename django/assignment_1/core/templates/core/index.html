@@ -74,7 +74,7 @@
                     <a class="play-icon" href="{% url 'videoDetails' pk=video.id %}"><i
                             class="fas fa-play-circle"></i></a>
                     <a href="{% url 'videoDetails' pk=video.id %}"><img class="img-fluid"
-                            src="{% static 'assets/images/youtube-thumb-1.webp' %}" alt=""></a>
+                            src="{% if video.thumbnail %} {{ video.thumbnail.url }}{% else %}{% static 'assets/images/youtube-thumb-1.webp' %}{% endif %}" alt=""></a>
                     <div class="time">{{video.runtime}}</div>
                 </div>
                 <div class="video-card-body">
