@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> -->
+
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -75,8 +79,8 @@
                             <a href="{% url 'add_quiz' %}"
                                 class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                 data-mdb-ripple="true" data-mdb-ripple-color="primary">
-                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                 </svg>
@@ -87,8 +91,8 @@
                             <a href="{% url 'quizlist' %}"
                                 class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                 data-mdb-ripple="true" data-mdb-ripple-color="primary">
-                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                                 </svg>
@@ -118,7 +122,7 @@
                     <ul class="relative accordion-collapse collapse" id="collapseSidenavSecEx3"
                         aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li class="relative">
-                            <a href="{% url 'add_quiz' %}"
+                            <a href="{% url 'create_article' %}"
                                 class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                 data-mdb-ripple="true" data-mdb-ripple-color="primary">
                                 <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
@@ -130,7 +134,7 @@
                             </a>
                         </li>
                         <li class="relative">
-                            <a href="{% url 'quizlist' %}"
+                            <a href="{% url 'article' %}"
                                 class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                 data-mdb-ripple="true" data-mdb-ripple-color="primary">
                                 <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
@@ -138,7 +142,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
                                 </svg>
-                                <span>Quiz List</span>
+                                <span>Article List</span>
                             </a>
                         </li>
                     </ul>
@@ -148,11 +152,11 @@
                 <li class="relative">
                     <a class="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                         href="{% url 'dashboard' %}" data-mdb-ripple="true" data-mdb-ripple-color="primary">
-                       <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                           xmlns="http://www.w3.org/2000/svg">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                               d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
-                       </svg>
+                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                        </svg>
                         <span>Article</span>
                     </a>
                 </li>
@@ -247,6 +251,7 @@
 
         <!-- Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.7.0/htmx.min.js"
             integrity="sha512-etqA0KankuxrlSeZDYycQBY/D/KWZn0YZjlsjAo7kCEBTy1gg+DwmR6icxtOpqDBOzm2P00/lSIXEu7K+zvNsg=="
@@ -256,6 +261,11 @@
         {% endwith %}
         <script>
             feather.replace()
+            $(document).ready(function () {
+                $('#id_content').summernote({
+                    height: 140,
+                });
+            });
         </script>
     </body>
 </body>

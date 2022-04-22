@@ -63,7 +63,7 @@ class QuizStudentResult(models.Model):
 
 
 class QuizStudentAnswer(models.Model):
-    student = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True)
+    student = models.ForeignKey(CustomUser,on_delete=models.CASCADE,null=True,related_name='stdans')
     quiz = models.ForeignKey(Quiz,on_delete=models.SET_NULL,null=True,related_name='stdans')
     question = models.ForeignKey(QuizQuestion,on_delete=models.SET_NULL,null=True,related_name='stdans')
     answer = models.ForeignKey(QuizQuestionAnswer,on_delete=models.SET_NULL,null=True,related_name='stdans')
@@ -74,8 +74,3 @@ class QuizStudentAnswer(models.Model):
             self.quiz = self.answer.question.quiz
             self.question = self.answer.question
         super(QuizStudentAnswer, self).save(*args, **kwargs)
-
-
-
-
-

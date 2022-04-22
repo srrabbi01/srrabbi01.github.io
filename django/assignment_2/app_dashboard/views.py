@@ -1,9 +1,10 @@
+from multiprocessing import context
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 # from app_dashboard.forms import SetExamQuizForm
 from app_dashboard.models import *
-
+from elearn.decorators import *
 # Create your views here.
 
 @login_required(login_url='signin')
@@ -15,7 +16,8 @@ def dashboard_view(request):
     return render(request,'app_dashboard/dashboard.html',context)
 
 
-
+@login_required(login_url='signin')
+@user_is_teacher
 def addQuiz_view(request):
     lastAnswer = QuizQuestionAnswer.objects.last()
     lastAnswerId = lastAnswer.id if lastAnswer else 0
@@ -51,16 +53,18 @@ def addQuiz_view(request):
     context = {
         'lastAnswerId':lastAnswerId,
     }
-    return render(request,'app_dashboard/add_quiz.html',context)
+    return render(request,'app_dashboard/create_quiz.html',context)
 
 
-
+@login_required(login_url='signin')
+@user_is_teacher
 def quizList_view(requset):
     quiz_qs = Quiz.objects.filter(teacher = requset.user)
     return render(requset,'app_dashboard/quizlist.html',{'quiz_qs':quiz_qs})
 
 
-
+@login_required(login_url='signin')
+@user_is_teacher
 def updateQuiz_view(request,pk):
     quizObj= Quiz.objects.filter(id=pk)[0]
     lastAnswer = QuizQuestionAnswer.objects.last()
@@ -101,7 +105,7 @@ def updateQuiz_view(request,pk):
                         QuizQuestionAnswer.objects.update_or_create(id=qQuesAnsId,defaults=dict(question=quizQuesObj, text=val2, is_correct=False))
                         continue
 
-        return redirect('update_quiz',pk)
+        return redirect('quizlist')
     context = {
         'quizObj':quizObj,
         'lastAnswerId':lastAnswerId,
@@ -109,7 +113,7 @@ def updateQuiz_view(request,pk):
     return render(request,'app_dashboard/update_quiz.html',context)
 
 
-
+@login_required(login_url='signin')
 def quizExam_view(request,pk):
     result = False
     quizObj = Quiz.objects.get(id=pk)
@@ -140,19 +144,22 @@ def quizExam_view(request,pk):
     return render(request,'app_dashboard/quiz_exam.html',context)
 
 
-    
+@login_required(login_url='signin')
+@user_is_teacher
 def deleteQuiz_view(request,pk):
     Quiz.objects.get(id=pk).delete()
     return redirect('quizlist')
 
 
-
+@login_required(login_url='signin')
+@user_is_teacher
 def deleteQuizQues_view(request,pk):
     QuizQuestion.objects.get(id=pk).delete()
     return HttpResponse()
 
 
-
+@login_required(login_url='signin')
+@user_is_teacher
 def deleteQuizAns_view(request,pk):
     QuizQuestionAnswer.objects.get(id=pk).delete()
     return HttpResponse()

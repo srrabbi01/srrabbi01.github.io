@@ -19,7 +19,13 @@
                                     Title
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Status
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Update
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Delete
                                 </th>
                             </tr>
                         </thead>
@@ -30,6 +36,13 @@
                                     {{forloop.counter}}</td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     {{quiz.title}}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {% if quiz.active %}
+                                    Active
+                                    {% else %}
+                                    Inactive
+                                    {% endif %}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     <a href="{% url 'update_quiz' pk=quiz.id %}" class="button-1">update</a>

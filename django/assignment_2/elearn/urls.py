@@ -7,5 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/',include('app_auth.urls')),
     path('dashboard/',include('app_dashboard.urls')),
+    path('article/',include('app_article.urls')),
+    path('forums/',include('app_forum.urls')),
     path('', TemplateView.as_view(template_name="index.html"))
 ]

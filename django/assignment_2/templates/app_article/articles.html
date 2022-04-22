@@ -1,0 +1,40 @@
+{% extends 'app_dashboard/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load custom_template_tags %}
+{% block title %}Dashboard{% endblock title%}
+{% block wrapper %}
+<div class="container bg-white p-10 rounded-md">
+        <h2 class="text-2xl font-bold mb-8 border-b pb-2">Articles</h2>
+
+        <div class="flex justify-center flex-col items-center">
+                {% for article in articles %}
+                <div class="block p-6 border-b bg-white max-w-5xl w-full mb-5">
+                        <div class="w-full">
+                                <span class="inline-block py-1 px-3 rounded bg-emerald-100 mb-3 text-emerald-500
+                               dark:bg-slate-700 dark:text-gray-300 text-xs font-medium
+                               tracking-widest">{{article.author}}</span>
+                                {% if article.author == user %}
+                                <div class="float-right">
+                                        <a href="{% url 'delete_article' pk=article.id %}"
+                                                onclick="return confirm('Are you sure?')"
+                                                class="py-1 px-3 bg-red-400 text-white rounded-xl text-xs">delete</a>
+                                        <a href="{% url 'update_article' pk=article.id %}"
+                                                class="py-1 px-3 bg-blue-400 text-white rounded-xl text-xs">update</a>
+                                </div>
+                                {% endif %}
+                        </div>
+
+                        <h5 class="text-gray-900 text-2xl leading-tight font-medium mb-2">{{article.title}}</h5>
+                        <p class="text-gray-600 text-base mb-4">{{article.content|safe|striptags|slice:"200" }}...</p>
+                        <div class="w-full">
+                                <a href="{% url 'details_article' pk=article.id %}"
+                                        class=" inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">read
+                                        more &rarr;</a>
+                                <span class="text-sm text-gray-600 float-right">{{article.created_on}}</span>
+                        </div>
+                </div>
+                {% endfor %}
+        </div>
+</div>
+{% endblock wrapper %}

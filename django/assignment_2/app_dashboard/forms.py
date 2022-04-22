@@ -1,6 +1,4 @@
 
-from dataclasses import fields
-from random import choices
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from app_auth.models import CustomUser
