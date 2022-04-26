@@ -33,27 +33,39 @@
 }
 
 .questions .question::before {
-    @apply bg-blue-500 aspect-square rounded text-white w-6 h-6 text-center font-bold block mr-5 mb-5
+    @apply bg-gray-700 aspect-square rounded text-white w-9 h-9 text-center font-semibold inline-flex justify-center items-center mr-5 mb-5 text-sm
 }
 .answers .answer::before {
-    @apply bg-indigo-500 aspect-square rounded text-white w-6 h-6 text-center font-bold block mr-5 mb-5
+    @apply border border-gray-700 text-gray-700 aspect-square rounded-full w-7 h-7 text-center font-bold mr-5 mb-5 text-xs inline-flex justify-center items-center
 }
 
 .button-1{
     @apply flex items-center justify-center w-fit border border-transparent font-medium hover:bg-indigo-700 text-white bg-indigo-600 md:text-lg py-2.5 px-6 !text-xs rounded uppercase
 }
 .cta{
-     @apply px-2 py-1 rounded text-sm
+     @apply px-2.5 py-2 rounded text-xs whitespace-nowrap flex items-center justify-center transition-all
 }
-.cta-primary{
+.cta-primary-1{
     @apply bg-blue-500 text-white
 }
-.cta-danger{
-    @apply bg-red-500 text-white
+.cta-danger-1{
+    @apply bg-red-500 text-white hover:bg-red-600 shadow-md
 }
 
-.cta-success{
+.cta-success-1{
     @apply bg-green-500 text-white
+}
+
+.cta-secondary-1{
+    @apply bg-slate-700 border-gray-700 text-white hover:bg-slate-800
+}
+
+.cta-outline-danger-1{
+    @apply border  border-red-500 text-red-500 hover:bg-red-500 hover:text-white
+}
+
+.cta-outline-secondary-1{
+    @apply border border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-white
 }
 .radio-1{
     @apply appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer

@@ -1,0 +1,44 @@
+{% extends 'app_dashboard/base.html' %}
+{% load static %}
+{% load widget_tweaks  %}
+{% load custom_template_tags %}
+{% block title %}Create Forum{% endblock title%}
+{% block wrapper %}
+<div class="container bg-white p-10 rounded-md font-poppins">
+    <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Create Forum</h2>
+    <div class="p-2 rounded text-gray-700 max-w-7xl mx-auto">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="flex flex-wrap">
+                {% for field in form %}
+                <div
+                    class="{% if field.name == 'email' or field.name == 'phone' %} w-2/4 {% else %} w-full{% endif %} p-2">
+                    <label for="" class="block">{{field.label}}</label>
+                    {% render_field field class="form-field " placeholder=field.label %}
+                    <ul class="w-full">
+                        {% for error in field.errors %}
+                        <li> <span class="ml-2 text-s text-red-400 block">{{error}}</span></li>
+                        {% endfor %}
+                    </ul>
+                    <p class="text-gray-500">{{field.help_texts}}</p>
+                </div>
+
+                {% endfor %}
+            </div>
+            <div class="p-2">
+                <button class="btn mt-2">Create</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock wrapper %}
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('#id_description').summernote({
+            height: 200,
+        });
+    });
+</script>
+{% endblock script %}

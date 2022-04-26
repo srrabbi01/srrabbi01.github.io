@@ -2,29 +2,7 @@ from django.db import models
 from app_auth.models import CustomUser
 
 
-
 # Create your models here.
-class Articles(models.Model):
-    categoriesType = (
-        ('', 'Please Select'),
-        ('How To Articles', 'How To Articles'),
-        ('List Articles', 'List Articles'),
-        ('Round Up Articles', 'Round Up Articles'),
-        ('Guide Articles', 'Guide Articles'),
-        ('Comparison Articles', 'Comparison Articles'),
-        ('How To Articles', 'How To Articles'),
-    )
-    teacher = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='Teacher')
-    categories = models.CharField(max_length=255, null=True, choices=categoriesType, default=categoriesType[0][0])
-    title = models.CharField(max_length=255, null=True)
-    article = models.CharField(max_length=1080, null=True)
-    created_at = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.title}"
-
-
-
 class Quiz(models.Model):
     teacher = models.ForeignKey(CustomUser,on_delete=models.SET_NULL,null=True,related_name='quiz')
     title = models.CharField(max_length=255,null=True)

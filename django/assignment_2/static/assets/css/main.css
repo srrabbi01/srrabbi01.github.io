@@ -1,30 +1,40 @@
-    .questions .question {
-        counter-increment: qlist-number;
-    }
+:root {
+    --ggs: 0.75;
+}
 
-    .questions .question::before {
-        content: counter(qlist-number);
-    }
+/* i[class^='gg'], i[class*='gg']{
+    width: 10px;
+    height: 10px;
+} */
+.questions .question {
+    counter-increment: qlist-number;
+}
 
-    .answers .answer {
-        counter-increment: alist-number;
-    }
+.questions .question::before {
+    content: "Q" counter(qlist-number);
+    border-radius: 33% 67% 65% 35% / 46% 62% 38% 54%;
+}
 
-    .answers .answer::before {
-        content: counter(alist-number);
-    }
+.answers .answer {
+    counter-increment: alist-number;
+}
 
-    .feather-16 {
-        width: 16px;
-        height: 16px;
-    }
+.answers .answer::before {
+    content: "O" counter(alist-number);
+}
 
-    .feather-24 {
-        width: 24px;
-        height: 24px;
-    }
 
-    .feather-32 {
-        width: 32px;
-        height: 32px;
-    }
+.feather-16 {
+    width: 16px;
+    height: 16px;
+}
+
+.feather-24 {
+    width: 24px;
+    height: 24px;
+}
+
+.feather-32 {
+    width: 32px;
+    height: 32px;
+}

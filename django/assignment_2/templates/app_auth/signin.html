@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignIn</title>
     <link rel="stylesheet" href="{% static 'vendor/tailwindcss/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/jnoty/jnoty.min.css' %}">
 
 </head>
 
@@ -31,22 +32,13 @@
                 <div class="flex flex-wrap">
                     <div class=" w-full p-2">
                         <label for="" class="block">Username</label>
-                        <input type="text" name="username" class="form-field" placeholder="Username" required>
+                        <input type="text" name="username" class="form-field" placeholder="Username" required value="{{username}}">
                     </div>
                     <div class=" w-full p-2">
                         <label for="" class="block">Password</label>
                         <input type="password" name="password" class="form-field" placeholder="Password" required>
                     </div>
                 </div>
-                {% if messages %}
-                {% for message in messages %}
-                {% if message.tags == 'error' %}
-                <div class="px-2">
-                    <p style="color: red;">{{ message }}<p></p>
-                </div>
-                {% endif %}
-                {% endfor %}
-                {% endif %}
                 <div class="p-2">
                     <button class="btn mt-2">SignIn</button>
                 </div>
@@ -58,8 +50,29 @@
                 </div>
             </form>
         </div>
-
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'vendor/jnoty/jnoty.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            `{% if messages %}
+            {% for message in messages %}
+            {% if message.tags %} class="{{ message.tags }}"
+            {% endif %}>`
+
+            theme = '{{ message.tags }}'
+            header = '{{ message.tags|title }}'
+            $.jnoty("{{ message }}", {
+                header: header,
+                theme: 'jnoty-' + theme,
+            });
+
+            `{{ message }}
+            {% endfor %}
+            {% endif %}`
+        });
+    </script>
 </body>
 
 </html>

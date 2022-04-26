@@ -1,8 +1,10 @@
-{% extends 'app_dashboard/base.html' %} {% load static %} {% load widget_tweaks
-%} {% load custom_template_tags %} {% block title %}Dashboard{% endblock title%}
+{% extends 'app_dashboard/base.html' %} 
+{% load static %}{% load widget_tweaks %} 
+{% load custom_template_tags %} 
+{% block title %}Update Article{% endblock title%}
 {% block wrapper %}
 <div class="container bg-white p-10 rounded-md">
-  <h2 class="text-2xl font-bold mb-8 border-b">Update Article</h2>
+  <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Update Article</h2>
 
   <form action="" method="post">
     {% csrf_token %} {% for field in form %}
@@ -19,7 +21,7 @@
 
     {% endfor %}
     <div class="p-2">
-      <button class="btn mt-2 text-sm">SignUp</button>
+      <button class="btn mt-2 text-sm">Create Article</button>
     </div>
   </form>
 </div>

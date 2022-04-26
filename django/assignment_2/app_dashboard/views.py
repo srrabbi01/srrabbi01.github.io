@@ -2,6 +2,8 @@ from multiprocessing import context
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
 # from app_dashboard.forms import SetExamQuizForm
 from app_dashboard.models import *
 from elearn.decorators import *
@@ -16,12 +18,10 @@ def dashboard_view(request):
     return render(request,'app_dashboard/dashboard.html',context)
 
 
+
 @login_required(login_url='signin')
 @user_is_teacher
 def addQuiz_view(request):
-    lastAnswer = QuizQuestionAnswer.objects.last()
-    lastAnswerId = lastAnswer.id if lastAnswer else 0
-
     if request.method == 'POST':
         quizTitle = request.POST.get('quiztitle')
         quizActive= True if request.POST.get('quizactive') else False
@@ -50,10 +50,8 @@ def addQuiz_view(request):
                         continue
 
         return redirect('quizlist')
-    context = {
-        'lastAnswerId':lastAnswerId,
-    }
-    return render(request,'app_dashboard/create_quiz.html',context)
+    return render(request,'app_dashboard/create_quiz.html')
+
 
 
 @login_required(login_url='signin')
@@ -63,10 +61,11 @@ def quizList_view(requset):
     return render(requset,'app_dashboard/quizlist.html',{'quiz_qs':quiz_qs})
 
 
+
 @login_required(login_url='signin')
 @user_is_teacher
 def updateQuiz_view(request,pk):
-    quizObj= Quiz.objects.filter(id=pk)[0]
+    quizObj= Quiz.objects.filter(id=pk,teacher=request.user)[0]
     lastAnswer = QuizQuestionAnswer.objects.last()
     lastAnswerId = lastAnswer.id if lastAnswer else 0
 
@@ -82,27 +81,47 @@ def updateQuiz_view(request,pk):
         qQuesFields = { k:v for (k,v) in copyRequstData.items() if k.startswith('ques')}
         qQuesAnsFields = { k:v for (k,v) in copyRequstData.items() if k.startswith('qans')}
         qCorrectAns = { k:v for (k,v) in copyRequstData.items() if k.startswith('iscorrect')}
+
         print(qQuesFields)
         print(qQuesAnsFields)
         print(qCorrectAns)
+        
         for key1, val1 in qQuesFields.items() :
             qQuesId = int(key1.split('=')[1])
-            quizQuesObj,created = QuizQuestion.objects.update_or_create(id=qQuesId,defaults=dict(quiz=quizObj,text=val1))
+            quizQuesObj = QuizQuestion.objects.filter(id=qQuesId,quiz=quizObj)
+            if quizQuesObj:
+                quizQuesObj = quizQuesObj[0]
+                quizQuesObj.text=val1
+                quizQuesObj.save()
+            else:
+                quizQuesObj = QuizQuestion.objects.create(quiz=quizObj,text=val1)
 
             for key2, val2 in qQuesAnsFields.items() :
                 if key1 in key2 :
                     qQuesAnsId = int(key2.split('&')[0].split('=')[1])
+                    quizQuesAnsObj = QuizQuestionAnswer.objects.filter(id=qQuesAnsId,question=quizQuesObj)
                     isCorrect = False
 
                     for key3, val3 in qCorrectAns.items():
                         if (key1 and key2 in key3) and val3:
-                            print(key1, key2 ,key3,val1,val2,val3,'Correct')
                             isCorrect=True
-                            QuizQuestionAnswer.objects.update_or_create(id=qQuesAnsId,defaults=dict(question=quizQuesObj, text=val2, is_correct=True))
+                            if quizQuesAnsObj:
+                                quizQuesAnsObj = quizQuesAnsObj[0]
+                                quizQuesAnsObj.text = val2
+                                quizQuesAnsObj.is_correct = True
+                                quizQuesAnsObj.save()
+                            else:
+                                QuizQuestionAnswer.objects.create(question=quizQuesObj,text=val2,is_correct=True)
                             continue
 
                     if not isCorrect:
-                        QuizQuestionAnswer.objects.update_or_create(id=qQuesAnsId,defaults=dict(question=quizQuesObj, text=val2, is_correct=False))
+                        if quizQuesAnsObj:
+                            quizQuesAnsObj = quizQuesAnsObj[0]
+                            quizQuesAnsObj.text = val2
+                            quizQuesAnsObj.is_correct = False
+                            quizQuesAnsObj.save()
+                        else:
+                            QuizQuestionAnswer.objects.create(question=quizQuesObj,text=val2,is_correct=False)
                         continue
 
         return redirect('quizlist')
@@ -111,6 +130,7 @@ def updateQuiz_view(request,pk):
         'lastAnswerId':lastAnswerId,
     }
     return render(request,'app_dashboard/update_quiz.html',context)
+
 
 
 @login_required(login_url='signin')
@@ -144,6 +164,7 @@ def quizExam_view(request,pk):
     return render(request,'app_dashboard/quiz_exam.html',context)
 
 
+
 @login_required(login_url='signin')
 @user_is_teacher
 def deleteQuiz_view(request,pk):
@@ -151,11 +172,13 @@ def deleteQuiz_view(request,pk):
     return redirect('quizlist')
 
 
+
 @login_required(login_url='signin')
 @user_is_teacher
 def deleteQuizQues_view(request,pk):
     QuizQuestion.objects.get(id=pk).delete()
     return HttpResponse()
+
 
 
 @login_required(login_url='signin')

@@ -5,23 +5,28 @@
 {% block title %}Dashboard{% endblock title%}
 {% block wrapper %}
 <div class="container bg-white p-10 rounded-md">
-        <h2 class="text-2xl font-bold mb-8 border-b">Dashboard</h2>
+        <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Dashboard</h2>
+        <div class="bg-yellow-100 rounded-lg py-5 px-6 mb-4 text-base text-yellow-700 max-w-lg" role="alert">
+                <h2>Extra Feature will be added later</h2>
+        </div>
         {% if user.is_student %}
-        <h2 class="text-xl font-semibold ml-5">All Quizes</h2>
-        <ul class="bg-white rounded-lg w-96 text-gray-900 ml-5">
+        <h2 class="text-xl font-semibold ml-5 mt-10">All Quizes</h2>
+        <ul class="bg-white rounded-lg max-w-lg text-gray-900 ml-5">
                 {% for quiz in quiz_qs %}
                 <li class="px-6 py-2 border-b border-gray-200 w-full flex justify-between items-center">
                         {{quiz.title}}
                         {% if not quiz|isResultComplete:user %}
                         <a href="{% url 'quizexam' pk=quiz.id %}"
-                                class="bg-red-600 text-gray-100 rounded px-2 py-1">give exam</a>
+                                class="bg-red-600 text-gray-100 rounded px-3 py-1.5 text-xs uppercase">give exam</a>
                         {% else %}
                         <a href="{% url 'quizexam' pk=quiz.id %}"
-                                class="bg-green-600 text-gray-100 rounded px-2 py-1">see result</a>
+                                class="bg-green-600 text-gray-100 rounded px-3 py-1.5 text-xs uppercase">see result</a>
                         {% endif %}
                 </li>
                 {% endfor %}
         </ul>
+        {% elif user.is_teacher %}
+
         {% endif %}
 
 </div>

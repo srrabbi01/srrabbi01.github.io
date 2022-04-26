@@ -4,7 +4,7 @@
 {% block title %}Update Quiz{% endblock title%}
 {% block wrapper %}
 <div class="container bg-white p-10 rounded-md">
-    <h2 class="text-2xl font-bold mb-8 border-b">Update Quiz</h2>
+    <h2 class="text-2xl font-semibold mb-8 border-b">Update Quiz</h2>
     <form action="" method="post" class="quiz-container w-2/4">
         {% csrf_token %}
         <label for="quiztitle" class="text-xl">Quiz Title</label>
@@ -19,8 +19,8 @@
         </div>
         <div class="flex justify-start items-start flex-col">
             <div class="my-5 flex items-center justify-end w-full">
-                <label for="" class="">Add question</label>
-                <button class="add_ques_button cta cta-primary ml-2">Add</button>
+                <button class="add_ques_button cta cta-secondary-1"><i class='bx bx-plus mr-1 text-[1rem]'></i>Add
+                    Question</button>
             </div>
             <div class="bg-white rounded-lg text-gray-900 questions w-full mb-10" data-lansid={{lastAnswerId}}>
                 {% for question in quizObj.quizqs.all %}
@@ -30,27 +30,31 @@
                         <input type="text" name="ques={{question.id}}"
                             class="form-control relative flex-auto form-field-2 inline-block"
                             placeholder="Type Quiz Question" required value="{{question.text}}">
-                        <button class="cta cta-danger ml-5" hx-target="#question{{question.id}}"
+                        <button class="cta cta-danger-1 ml-5" hx-target="#question{{question.id}}"
                             hx-post="{% url 'delete_ques' pk=question.id %}" hx-swap="delete"
-                            hx-confirm="Are you sure you wish to delete this question ?">&times;</button>
+                            hx-confirm="Are you sure you wish to delete this question ?"><i
+                                class="gg-trash"></i></button>
                     </div>
+                    <p class="text-sm flex justify-start items-center text-gray-500"><i class="gg-info mr-2"></i>Note:
+                        check option if the option is correct</p>
                     <div class="my-5 flex items-center justify-end">
-                        <label for="" class="">Add answer</label>
-                        <button class="add_qans_button cta cta-primary ml-2">Add</button>
+                        <button class="add_qans_button cta cta-outline-secondary-1 ml-2"><i
+                                class='bx bx-plus mr-1 text-[1rem]'></i>Add option</button>
                     </div>
                     <div class="answers relative pl-10">
                         {% for answer in question.qsans.all %}
                         {% if answer %}
-                        <div class="answer flex items-center mb-5" data-ansid={{answer.id}}
-                            data-quesid="{{question.id}}" id="answer{{answer.id}}">
+                        <div class="answer flex items-center mb-5" data-ansid={{answer.id}} id="answer{{answer.id}}">
                             <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
                                 name="iscorrect&qans={{answer.id}}&ques={{question.id}}" {% if answer.is_correct %}
                                 checked {% endif %}>
                             <input type="text" name="qans={{answer.id}}&ques={{question.id}}" id="" class="form-field-2"
                                 placeholder="Type answer" required value="{{answer.text}}">
-                            <button hx-target="#answer{{answer.id}}" hx-swap="delete" class="cta cta-danger ml-5"
+                            <button hx-target="#answer{{answer.id}}" hx-swap="delete"
+                                class="cta cta-outline-danger-1 ml-5 p-1.5"
                                 hx-post="{% url 'delete_qans' pk=answer.id %}"
-                                hx-confirm="Are you sure you wish to delete this answer ?">&times;</button>
+                                hx-confirm="Are you sure you wish to delete this answer ?"><i
+                                    class="gg-trash-empty"></i></button>
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -79,6 +83,7 @@
 
             question = $(this).parents('div').next('.questions')
             lastQuestionId = question.children('.question').last().data('quesid')
+            lastQuestionId = lastQuestionId ? lastQuestionId : 0
             lastAnswerId = parseInt(questions.attr('data-lansid'))
 
             newQuestionId = lastQuestionId + 1
@@ -86,27 +91,26 @@
 
             var fieldQuesHTML =
                 `<div class="question mb-5" data-quesid=${newQuestionId}>
-                      <div class=" relative flex items-end w-full mb-4">
+                    <div class=" relative flex items-end w-full mb-4">
                           <input type="text" name="ques=${newQuestionId}"
                               class="form-control relative flex-auto form-field-2 inline-block"
                               placeholder="Type Quiz Question" required>
                           <button
-                              class="remove_ques_button cta cta-danger ml-2">remove</button>
-                      </div>
-                        <div class="my-5 flex items-center justify-end">
-                            <label for="" class="">Add answer</label>
-                            <button class="add_qans_button cta cta-primary ml-2">Add</button>
-                        </div>
-                        <div class="answers relative pl-10">
-                            <div class="answer flex items-center mb-5" data-ansid=1 data-quesid=${newQuestionId}>
-                                <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
-                                    name="iscorrect&qans=${newAnswerId}&ques=${newQuestionId}">
-                                <input type="text" name="qans=${newAnswerId}&ques=${newQuestionId}" id=""
-                                    class="form-field-2"
+                              class="remove_ques_button cta cta-danger-1 ml-2"><i class="gg-trash"></i></button>
+                    </div>
+                    <p class="text-sm flex justify-start items-center text-gray-500"><i class="gg-info mr-2"></i>Note: check option if the option is correct</p>
+                    <div class="my-5 flex items-center justify-end">
+                        <button class="add_qans_button cta cta-outline-secondary-1 ml-2"><i class='bx bx-plus mr-1 text-[1rem]'></i>Add option</button>
+                    </div>
+                    <div class="answers relative pl-10">
+                        <div class="answer flex items-center mb-5" data-ansid=1>
+                            <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
+                                name="iscorrect&qans=${newAnswerId}&ques=${newQuestionId}">
+                            <input type="text" name="qans=${newAnswerId}&ques=${newQuestionId}" id="" class="form-field-2"
                                     placeholder="Type answer" required>
-                            </div>
                         </div>
-                    </div>`
+                    </div>
+                </div>`
             $(questions).append(fieldQuesHTML);
             questions.attr('data-lansid', newAnswerId)
         });
@@ -116,8 +120,7 @@
         //Once remove button is clicked
         $(questions).on('click', '.remove_ques_button', function (e) {
             e.preventDefault();
-            // $(this).parents('.question').remove(); //Remove field html
-            console.log($(this).parents('.question').attr('data-quesid'))
+            $(this).parents('.question').remove(); //Remove field html
         });
 
 
@@ -127,18 +130,17 @@
             e.preventDefault();
             answers = $(this).parent('div').next('.answers')
             lastAnswerId = parseInt(questions.attr('data-lansid'))
-            lastQuestionId = parseInt(answers.children('.answer').last().attr('data-quesid'))
+            lastQuestionId = parseInt($(this).closest('.question').attr('data-quesid'))
             newAnswerId = lastAnswerId + 1
 
             var fieldAnsHTML =
-                `<div class="answer flex items-center mb-5" data-ansid="${newAnswerId}"
-                        data-quesid="${lastQuestionId}">
+                `<div class="answer flex items-center mb-5" data-ansid="${newAnswerId}">
                                 <input class="checkbox-1 form-check-input" type="checkbox" id="flexCheckDefault"
                                     name="iscorrect&qans=${newAnswerId}&ques=${lastQuestionId}">
                                 <input type="text" name="qans=${newAnswerId}&ques=${lastQuestionId}" id=""
                                     class="form-field-2"
                                     placeholder="Type answer" required>
-                                <button class="remove_qans_button cta cta-danger ml-2">remove</button>
+                                <button class="remove_qans_button cta cta-outline-danger-1 ml-5 p-1.5"><i class="gg-trash-empty"></i></button>
                         </div>`
             answers.append(fieldAnsHTML)
             questions.attr('data-lansid', newAnswerId)
@@ -148,8 +150,7 @@
 
         $(document).on('click', '.remove_qans_button', function (e) {
             e.preventDefault();
-            // $(this).parents('.answer').remove(); //Remove field html
-            console.log($(this).parents('.answer').attr('data-ansid'))
+            $(this).parents('.answer').remove(); //Remove field html
         });
 
     });

@@ -12,13 +12,18 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
-    <link rel="stylesheet" href="{% static 'vendor/tailwindcss/tailwind.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
     <script src="https://unpkg.com/feather-icons"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> -->
-
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <link href='https://css.gg/css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="{% static 'vendor/tailwindcss/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/jnoty/jnoty.min.css' %}">
 
 </head>
 
@@ -28,19 +33,21 @@
     <body class="font-poppins h-screen dark:bg-slate-800 bg-slate-100">
         <div class="w-60 h-full shadow-md bg-white absolute" id="sidenavSecExample">
             <div class="pt-4 pb-2 px-6">
-                <a href="#!">
+                <a href="{% url 'dashboard' %}">
                     <div class="flex items-center">
                         <div class="shrink-0">
                             <img src="https://mdbcdn.b-cdn.net/img/new/avatars/8.webp" class="rounded-full w-10"
                                 alt="Avatar">
                         </div>
                         <div class="grow ml-3">
-                            <p class="text-sm font-semibold text-blue-600">Jason McCoel</p>
+                            <p class="text-base font-semibold text-blue-600">
+                                {{request.user}}</p>
+                            <p class="text-xs">{{request.user.role}}</p>
                         </div>
                     </div>
                 </a>
             </div>
-            <ul class="relative px-1">
+            <ul class="relative px-1 mt-5">
                 <li class="relative">
                     <a class="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                         href="{% url 'dashboard' %}" data-mdb-ripple="true" data-mdb-ripple-color="primary">
@@ -73,7 +80,7 @@
                             </path>
                         </svg>
                     </a>
-                    <ul class="relative accordion-collapse collapse" id="collapseSidenavSecEx2"
+                    <ul class="relative accordion-collapse collapse show" id="collapseSidenavSecEx2"
                         aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li class="relative">
                             <a href="{% url 'add_quiz' %}"
@@ -119,7 +126,7 @@
                             </path>
                         </svg>
                     </a>
-                    <ul class="relative accordion-collapse collapse" id="collapseSidenavSecEx3"
+                    <ul class="relative accordion-collapse collapse show" id="collapseSidenavSecEx3"
                         aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
                         <li class="relative">
                             <a href="{% url 'create_article' %}"
@@ -134,7 +141,7 @@
                             </a>
                         </li>
                         <li class="relative">
-                            <a href="{% url 'article' %}"
+                            <a href="{% url 'articles' %}"
                                 class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
                                 data-mdb-ripple="true" data-mdb-ripple-color="primary">
                                 <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
@@ -151,7 +158,7 @@
                 {% if user.is_student %}
                 <li class="relative">
                     <a class="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
-                        href="{% url 'dashboard' %}" data-mdb-ripple="true" data-mdb-ripple-color="primary">
+                        href="{% url 'articles' %}" data-mdb-ripple="true" data-mdb-ripple-color="primary">
                         <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -160,12 +167,59 @@
                         <span>Article</span>
                     </a>
                 </li>
+                <li class="relative" id="sidenavSecEx3">
+                    <a class="flex items-center text-sm py-4 px-6 h-12 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out cursor-pointer"
+                        data-mdb-ripple="true" data-mdb-ripple-color="primary" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSidenavSecEx4" aria-expanded="false"
+                        aria-controls="collapseSidenavSecEx4">
+                        <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
+                            </path>
+                        </svg>
+                        <span>Forum</span>
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" class="w-3 h-3 ml-auto" role="img"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path fill="currentColor"
+                                d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z">
+                            </path>
+                        </svg>
+                    </a>
+                    <ul class="relative accordion-collapse collapse show" id="collapseSidenavSecEx4"
+                        aria-labelledby="sidenavSecEx2" data-bs-parent="#sidenavSecExample">
+                        <li class="relative">
+                            <a href="{% url 'create_forum' %}"
+                                class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
+                                data-mdb-ripple="true" data-mdb-ripple-color="primary">
+                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                <span>Create</span>
+                            </a>
+                        </li>
+                        <li class="relative">
+                            <a href="{% url 'forums' %}"
+                                class="flex items-center text-xs py-4 pl-12 pr-6 h-6 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-blue-600 hover:bg-blue-50 transition duration-300 ease-in-out"
+                                data-mdb-ripple="true" data-mdb-ripple-color="primary">
+                                <svg class="w-4 h-4 mr-3" role="img" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+                                </svg>
+                                <span>Forum List</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 {% endif %}
             </ul>
             <!-- <hr class="my-2"> -->
-            <div class="text-center bottom-0 absolute w-full">
+            <div class="text-center bottom-0 absolute w-full bg-gray-800">
                 <hr class="m-0">
-                <p class="py-2 text-sm text-gray-700">tailwind-elements.com</p>
+                <p class="py-2 text-sm text-white">Copyright @2022 elearn</p>
             </div>
         </div>
 
@@ -204,9 +258,14 @@
                             <!-- Profile dropdown -->
                         </div>
                         <div class="flex space-x-2 justify-center">
+                            {% if request.user.is_authenticated %}
                             <button type="button" data-mdb-ripple="true" data-mdb-ripple-color="light"
                                 data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
-                                class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Signout</button>
+                                class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">Signout</button>
+                            {% else %}
+                            <a href="{% url 'signin' %}"
+                                class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Signin</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -256,15 +315,32 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.7.0/htmx.min.js"
             integrity="sha512-etqA0KankuxrlSeZDYycQBY/D/KWZn0YZjlsjAo7kCEBTy1gg+DwmR6icxtOpqDBOzm2P00/lSIXEu7K+zvNsg=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="{% static 'vendor/jnoty/jnoty.min.js' %}"></script>
         {% block script %}
         {% endblock script %}
         {% endwith %}
         <script>
-            feather.replace()
             $(document).ready(function () {
+                feather.replace()
                 $('#id_content').summernote({
                     height: 140,
                 });
+
+                `{% if messages %}
+                {% for message in messages %}
+                {% if message.tags %} class="{{ message.tags }}"
+                {% endif %}>`
+
+                theme = '{{ message.tags }}'
+                header = '{{ message.tags|title }}'
+                $.jnoty("{{ message }}", {
+                    header: header,
+                    theme: 'jnoty-' + theme,
+                });
+
+                `{{ message }}
+                {% endfor %}
+                {% endif %}`
             });
         </script>
     </body>

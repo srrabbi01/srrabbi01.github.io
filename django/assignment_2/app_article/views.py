@@ -8,7 +8,6 @@ from elearn.decorators import *
 
 def article_view(request):
     article_qs = Article.objects.filter().order_by('-created_on')
-    print(article_qs)
     context = {
         'articles':article_qs,
     }
@@ -22,6 +21,8 @@ def articleDetails_view(request,pk):
         'article':article,
     }
     return render(request,'app_article/details_article.html',context)
+
+
 
 @login_required(login_url='signin')
 @user_is_teacher   
@@ -38,6 +39,7 @@ def createArticle_view(request):
     return render(request,'app_article/create_Article.html',{'form':form})
 
 
+
 @login_required(login_url='signin')
 @user_is_teacher 
 def updateArticle_view(request,pk):
@@ -49,6 +51,7 @@ def updateArticle_view(request,pk):
             form.save()
         return redirect('update_article',pk)
     return render(request,'app_article/update_article.html',{'form':form})
+
 
 
 @login_required(login_url='signin')
