@@ -5,7 +5,9 @@
 {% block title %}{{article.title}}{% endblock title%}
 {% block wrapper %}
 <div class="container mx-auto bg-white p-4 md:p-10 rounded-md">
-  <h2 class="text-2xl font-bold border-b pb-2">{{article.title}}</h2>
+  <h2 class="text-2xl font-bold border-b mb-4 md:mb-8 pb-2">{{article.title}}</h2>
+  <span class="text-sm block my-2">Category: &nbsp; <span class="text-blue-600">{{article.categories}}</span></span>
+
   {% if article.author == user %}
   <div class="w-full my-2 flex justify-end mt-4">
     <a href="{% url 'update_article' pk=article.id %}"
@@ -21,6 +23,6 @@
     <span class="text-sm text-gray-600 float-right">{{article.created_on}}
     </span>
   </div>
-  <div class="text-gray-700">{{article.content|safe}}</div>
+  <div class="text-gray-700 break-words">{{article.content|safe}}</div>
 </div>
 {% endblock wrapper %}

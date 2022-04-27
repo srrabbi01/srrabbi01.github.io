@@ -34,9 +34,9 @@ def createArticle_view(request):
             new_form =form.save(commit=False)
             new_form.author = request.user
             new_form.save()
-        return redirect('create_article')
+        return redirect('articles')
 
-    return render(request,'app_article/create_Article.html',{'form':form})
+    return render(request,'app_article/create_article.html',{'form':form})
 
 
 
@@ -49,7 +49,7 @@ def updateArticle_view(request,pk):
         form = ArticleForm(request.POST,instance=article)
         if form.is_valid():
             form.save()
-        return redirect('update_article',pk)
+        return redirect('articles')
     return render(request,'app_article/update_article.html',{'form':form})
 
 
@@ -59,6 +59,6 @@ def updateArticle_view(request,pk):
 def deleteArticle_view(request,pk):
     article = get_object_or_404(Article,pk=pk)
     article.delete()
-    return redirect('article')
+    return redirect('articles')
 
 

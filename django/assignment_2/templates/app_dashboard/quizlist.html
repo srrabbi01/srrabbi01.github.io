@@ -4,7 +4,7 @@
 {% block title %}Quiz List{% endblock title%}
 {% block wrapper %}
 <div class="container mx-auto bg-white p-4 md:p-10 rounded-md text-gray-700">
-    <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Quiz List</h2>
+    <h2 class="text-2xl font-semibold mb-4 md:mb-8 pb-2 border-b">Quiz List</h2>
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -20,6 +20,9 @@
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Status
+                                </th>
+                                <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    Total Questions
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     Update
@@ -43,6 +46,9 @@
                                     {% else %}
                                     Inactive
                                     {% endif %}
+                                </td>
+                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                    {{quiz.quizqs.count}}
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     <a href="{% url 'update_quiz' pk=quiz.id %}" class="button-1">update</a>

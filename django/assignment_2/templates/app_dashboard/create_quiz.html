@@ -4,7 +4,7 @@
 {% block title %}Add Quiz{% endblock title%}
 {% block wrapper %}
 <div class="container mx-auto bg-white p-4 md:p-10 rounded-md text-gray-700 pb-10">
-    <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Create Quiz</h2>
+    <h2 class="text-2xl font-semibold mb-4 md:mb-8 pb-2 border-b">Create Quiz</h2>
     <form action="" method="post">
         {% csrf_token %}
         <div class="quiz-container max-w-full md:w-1/2">
@@ -17,6 +17,8 @@
                     <label for="quizactive" class="inline-block">Active</label>
                 </div>
             </div>
+            <p class="text-sm flex justify-start items-center text-blue-500 mt-2"><i
+                class="gg-info mr-2"></i>Note: check active if you want to start quiz</p>
             <div class="flex justify-start items-start flex-col">
                 <div class="my-5 flex items-center justify-end w-full">
                     <button class="add_ques_button cta cta-secondary-1"> <i class="bx bx-plus mr-1 text-[1rem]"></i>Add

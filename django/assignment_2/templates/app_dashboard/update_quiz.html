@@ -4,7 +4,7 @@
 {% block title %}Update Quiz{% endblock title%}
 {% block wrapper %}
 <div class="container mx-auto bg-white p-4 md:p-10 rounded-md">
-    <h2 class="text-2xl font-semibold mb-8 border-b">Update Quiz</h2>
+    <h2 class="text-2xl font-semibold mb-4 md:mb-8 border-b">Update Quiz</h2>
     <form action="" method="post" class="quiz-container md:w-2/4">
         {% csrf_token %}
         <label for="quiztitle" class="text-xl">Quiz Title</label>
@@ -17,6 +17,8 @@
                 <label for="quizactive" class="inline-block">Active</label>
             </div>
         </div>
+        <p class="text-sm flex justify-start items-center text-blue-500 mt-2"><i
+            class="gg-info mr-2"></i>Note: check active if you want to start quiz</p>
         <div class="flex justify-start items-start flex-col">
             <div class="my-5 flex items-center justify-end w-full">
                 <button class="add_ques_button cta cta-secondary-1"><i class='bx bx-plus mr-1 text-[1rem]'></i>Add

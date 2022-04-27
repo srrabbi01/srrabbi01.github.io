@@ -137,3 +137,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'app_auth.CustomUser'
+
+
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
