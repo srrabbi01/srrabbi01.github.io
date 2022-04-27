@@ -3,9 +3,9 @@
 {% load widget_tweaks %}
 {% block title %}Update Quiz{% endblock title%}
 {% block wrapper %}
-<div class="container bg-white p-10 rounded-md">
+<div class="container mx-auto bg-white p-4 md:p-10 rounded-md">
     <h2 class="text-2xl font-semibold mb-8 border-b">Update Quiz</h2>
-    <form action="" method="post" class="quiz-container w-2/4">
+    <form action="" method="post" class="quiz-container md:w-2/4">
         {% csrf_token %}
         <label for="quiztitle" class="text-xl">Quiz Title</label>
         <div class="flex items-end">
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn py-1 px-2">Submit</button>
+        <button type="submit" class="button-1">Submit</button>
     </form>
 </div>
 {% endblock wrapper %}

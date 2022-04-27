@@ -4,7 +4,7 @@
 {% load custom_template_tags %}
 {% block title %}Forums{% endblock title%}
 {% block wrapper %}
-<div class="container bg-white p-10 rounded-md font-poppins">
+<div class="container mx-auto bg-white p-4 md:p-10 rounded-md font-poppins">
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -30,7 +30,7 @@
                         <tbody>
                             {% for forum in forums %}
                             <tr class="border-b">
-                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                <td class="text-sm text-blue-900 px-6 py-4 whitespace-nowrap">
                                     <a href="{% url 'details_forum' pk=forum.id %}" class="hover:underline">{{forum.topic}}</a>
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

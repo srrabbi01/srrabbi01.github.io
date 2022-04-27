@@ -4,10 +4,10 @@
 {% load custom_template_tags %}
 {% block title %}Dashboard{% endblock title%}
 {% block wrapper %}
-<div class="container bg-white p-10 rounded-md">
+<div class="container mx-auto bg-white p-4 md:p-10 rounded-md">
         <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Dashboard</h2>
         <div class="bg-yellow-100 rounded-lg py-5 px-6 mb-4 text-base text-yellow-700 max-w-lg" role="alert">
-                <h2>Extra Feature will be added later</h2>
+                <h2>Extra Features will be added later</h2>
         </div>
         {% if user.is_student %}
         <h2 class="text-xl font-semibold ml-5 mt-10">All Quizes</h2>

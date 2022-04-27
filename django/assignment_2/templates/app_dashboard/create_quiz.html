@@ -3,11 +3,11 @@
 {% load widget_tweaks %}
 {% block title %}Add Quiz{% endblock title%}
 {% block wrapper %}
-<div class="container bg-white p-10 rounded-md text-gray-700">
+<div class="container mx-auto bg-white p-4 md:p-10 rounded-md text-gray-700 pb-10">
     <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Create Quiz</h2>
     <form action="" method="post">
         {% csrf_token %}
-        <div class="quiz-container max-w-full w-1/2">
+        <div class="quiz-container max-w-full md:w-1/2">
             <label for="quiztitle" class="text-base">Quiz Title</label>
             <div class="flex items-end">
                 <input type="text" name="quiztitle" class="form-field-2" placeholder="Type Quiz title" id="quiztitle"

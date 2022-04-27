@@ -2,10 +2,10 @@
 {% load static %}
 {% load widget_tweaks %}
 {% load custom_template_tags %}
-{% block title %}Dashboard{% endblock title%}
+{% block title %}Articles{% endblock title%}
 {% block wrapper %}
-<div class="container bg-white p-10 rounded-md">
-        <h2 class="text-2xl font-semibold mb-8 pb-2 border-b pb-2">Articles</h2>
+<div class="container mx-auto bg-white p-4 md:p-10 rounded-md">
+        <h2 class="text-2xl font-semibold mb-8 pb-2 border-b">Articles</h2>
 
         <div class="flex justify-center flex-col items-center">
                 {% for article in articles %}
