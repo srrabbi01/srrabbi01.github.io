@@ -1,0 +1,40 @@
+:root {
+    --ggs: 0.75;
+}
+
+/* i[class^='gg'], i[class*='gg']{
+    width: 10px;
+    height: 10px;
+} */
+.questions .question {
+    counter-increment: qlist-number;
+}
+
+.questions .question::before {
+    content: "Q" counter(qlist-number);
+    border-radius: 33% 67% 65% 35% / 46% 62% 38% 54%;
+}
+
+.answers .answer {
+    counter-increment: alist-number;
+}
+
+.answers .answer::before {
+    content: "O" counter(alist-number);
+}
+
+
+.feather-16 {
+    width: 16px;
+    height: 16px;
+}
+
+.feather-24 {
+    width: 24px;
+    height: 24px;
+}
+
+.feather-32 {
+    width: 32px;
+    height: 32px;
+}
