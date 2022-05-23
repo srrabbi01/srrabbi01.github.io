@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title_block %} {{product.name}} {% endblock %}
+{% block body_block %}
+<div class="my-5">
+	<div class="card">
+		<div class="row">
+			<aside class="col-sm-6">
+				<article class="gallery-wrap">
+					<div class="img-big-wrap">
+						<div>
+							<a href="#"><img src="/media/{{product.mainimage}}" /></a>
+						</div>
+					</div>
+				</article>
+			</aside>
+			<aside class="col-sm-6">
+				<article class="card-body p-2 p-md-5">
+					<h3 class="title mp-3">{{product.name}}</h3>
+					<p class="price-detail-wrap">
+						<span class="price h3 text-warning">
+							<span class="currency">BDT &#2547;</span><span class="num">{{product.price}}</span>
+						</span>
+						<span class="price-old"><strike>&#2547; {{product.old_price|floatformat:2}}</strike></span>
+					</p>
+					<h5><a href="#">{{product.vendor.vendor_shop.shop_name}}</a></h5>
+					<dl class="item-property">
+						<dt>Description</dt>
+						<dd>
+							<p>{{product.detail_text|linebreaks}}</p>
+						</dd>
+					</dl>
+					{% for coupon in product.vendor.vendor_coupon.all %}
+					<div class="coupon mb-2 rounded">
+						<div class="p-2 d-flex justify-content-between align-items-center flex-wrap text-center w-100 row">
+							<div class="d-flex flex-row justify-content-center justify-content-md-start off  col-md-4 col-12">
+								<h3 class="text-success">{{coupon.discount}}%</h3><span>OFF</span>
+							</div>
+							<div class="d-flex flex-row justify-content-center justify-content-md-end off p-2 col-md-8 col-12">
+								<span class="mr-2">Promo code:</span><span
+									class="border border-success px-3 rounded code">{{coupon.code}}</span>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					{% if request.user.role == 'Buyer' %}
+					<a href="{% url 'app_order:add' pk=product.pk %}" class="btn btn-outline-primary text-uppercase">
+						<i class="fas fa-shopping-cart"></i> Add to Cart</a>
+					{% else %}
+					<div class="alert alert-warning">You must login as a buyer. <a
+							href="{% url 'app_login:login' %}">Login</a></div>
+					{% endif %}
+				</article>
+			</aside>
+		</div>
+	</div>
+</div>
+{% endblock %}

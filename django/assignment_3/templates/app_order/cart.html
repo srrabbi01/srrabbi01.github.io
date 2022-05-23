@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+{% block title_block %} Cart {% endblock %}
+{% block body_block %}
+<div class="container my-5">
+	<div class="my-5">
+		<h2>Your Cart</h2>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col" width="15%">#</th>
+				<th scope="col">Product Name</th>
+				<th scope="col">Quantity</th>
+				<th scope="col" align="right">Price</th>
+				<th scop="col">Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for cart in carts %}
+			<tr>
+				<th scope="row">{{ forloop.counter }}</th>
+				<td> <img src="/media/{{cart.item.mainimage}}" class="img-fluid" style="width: 50px; height: 100%" />
+				</td>
+				<td>{{cart.item.name}}
+					<small class="d-block text-muted">
+						{{cart.item.vendor.vendor_shop.shop_name}}
+					</small>
+				</td>
+				<td>
+					<a class="mr-2" href="{% url 'app_order:decrease' pk=cart.item.pk %}"><span
+							class="badge badge-light"><i class="fas fa-minus"></i></span></a>
+					{{ cart.quantity }}
+					<a class="mr-2" href="{% url 'app_order:increase' pk=cart.item.pk %}">
+						<span class="badge badge-light"> <i class="fas fa-plus"></i></span></a>
+				</td>
+				<td align="right">&#2547; {{cart.get_total}}</td>
+				<td><a href="{% url 'app_order:remove' pk=cart.item.pk %}" class="btn btn-danger btn-sm">Remove</a></td>
+			</tr>
+			{% endfor %}
+			{% if order.applied_coupon %}
+			<tr>
+				<th colspan="3" scope="row"></th>
+				<td>
+					<h6 class="m-0">Subtotal </h6>
+				</td>
+				<td align="right">&#2547; {{order.get_totals|add:order.get_discounts | floatformat:2 }}</td>
+				<td></td>
+			</tr>
+			<tr class="border-none">
+				<th colspan="3" scope="row"></th>
+				<td align="right">
+					<div class="text-left">
+						<h6 class="m-0">Discount </h6>
+						<small class="d-block">Coupon Code: {{order.coupon.code}} ({{order.coupon.discount}}%)</small>
+						<small class="d-block"><a href="#">{{order.coupon.vendor.vendor_shop.shop_name}}</a></small>
+					</div>
+				</td>
+				<td align="right">-&#2547;{{order.get_discounts}}</td>
+				<td><a href="{% url 'app_order:removeCoupon' orderid=order.id %}" class="text-danger">[remove]</a></td>
+			</tr>
+			{% endif %}
+			<tr class="border-none">
+				<th colspan="3" scope="row"></th>
+				<td>
+					<h6 class="m-0">Total</h6>
+				</td>
+				<td align="right">&#2547; {{order.get_totals|floatformat:2 }}</td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		{% if order.applied_coupon %}
+		<div class="alert alert-warning" style="width: max-content;"><i class="fas fa-exclamation fa-xs mr-2"></i>Coupon
+			codes cannot be stackable</div>
+		{% else %}
+		<form class="d-flex" action="{% url 'app_order:applyCoupon' orderid=order.id  %}" method="POST">
+			{% csrf_token %}
+			<input type="text" name="coupon_code" class="form-control form-control-sm" placeholder="Coupon Code"
+				style="width: max-content;"><button class="btn btn-sm btn-dark d-inline-block"
+				type="submit">Apply
+				Coupon</button>
+		</form>
+		{% endif %}
+		<div class="text-right">
+			<a href="{% url 'app_shop:home' %}" class="btn btn-sm btn-warning mr-4">Continue Shoping</a>
+			<a href="{% url 'app_payment:checkout' %}" class="btn btn-sm btn-success mr-4">Proceed To Checkout</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
