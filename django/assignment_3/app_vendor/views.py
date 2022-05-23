@@ -6,11 +6,11 @@ from app_shop.models import Product
 from app_shop.forms import CouponForm, ProductForm
 from django.contrib import messages
 from app_vendor.forms import VendorShopForm
-
+from django.contrib.auth.decorators import login_required
 from app_vendor.models import VendorShop
 
 # Create your views here.
-
+@login_required
 def addProduct_view(request):
     form = ProductForm()
     if request.method == 'POST':
@@ -27,6 +27,7 @@ def addProduct_view(request):
     return render(request,'app_vendor/product_add.html',context)
 
 
+@login_required
 def productList_view(request):
     product_qs = Product.objects.filter(vendor=request.user)
     context = {
@@ -35,6 +36,7 @@ def productList_view(request):
     return render(request,'app_vendor/product_list.html',context)
 
 
+@login_required
 def productDelete_view(request,pk):
     product = get_object_or_404(Product,id=pk)
     product.delete()
@@ -42,6 +44,7 @@ def productDelete_view(request,pk):
     return HttpResponseRedirect(reverse('app_vendor:productList'))
 
 
+@login_required
 def couponCreate_view(request):
     form = CouponForm()
     if request.method == 'POST':
@@ -57,6 +60,8 @@ def couponCreate_view(request):
     }
     return render(request,'app_vendor/coupon_add.html',context)
 
+
+@login_required
 def shopInfo_view(request):
     form = VendorShopForm()
     if hasattr(request.user,'vendor_shop'):
@@ -81,7 +86,6 @@ def shopInfo_view(request):
         'form':form,
     }
     return render(request,'app_vendor/shop_info.html',context)
-
 
 
 

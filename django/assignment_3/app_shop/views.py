@@ -18,6 +18,7 @@ class Home(ListView):
     model = Product
     template_name = 'app_shop/home.html'
 
+
 def productDetail_view(request,pk):
     product_qs = get_object_or_404(Product,pk=pk)
     context = {
