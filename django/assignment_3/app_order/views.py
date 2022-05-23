@@ -134,6 +134,9 @@ def applyCoupon_view(request,orderid):
             order[0].apply_coupon(coupon[0])
             messages.success(request,'Applied coupon successfully.')
             return redirect('app_order:cart')
+        else:
+            messages.warning(request,'Coupon not found.')
+            return redirect('app_order:cart')
     else:
         messages.warning(request,'Coupon not found.')
         return redirect('app_order:cart')
