@@ -8,7 +8,7 @@ const Room = ({ room: { name, slug, images, price } }) => {
 		<div className='col-md-4 col-12 mx-auto p-2'>
 			<div className='card shadow-lg border-0 room'>
 				<img
-					src={images[0].fields.file.url || defaultImg}
+					src={images[0].url || defaultImg}
 					alt='single room'
 					className='img-fluid'
 				/>
