@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Banner from '../components/Banner';
 import RoomsData from '../data';
 import Room from '../components/Room';
-import { useSelector } from 'react-redux';
 
 const Home = () => {
 	const featuredRooms = RoomsData.filter((room) => {
@@ -11,8 +10,7 @@ const Home = () => {
 	}).map((room, index) => {
 		return <Room key={index} room={room.fields} />;
 	});
-	const user = useSelector((state) => state.user);
-	console.log(user);
+
 	return (
 		<>
 			<div className='defaultHero'></div>
