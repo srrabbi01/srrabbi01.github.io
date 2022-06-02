@@ -233,11 +233,11 @@ const BookRoom = () => {
 							<div className='col-md-6 col-12'>
 								<h6 className='font-weight-bold'>
 									Price per day :{' '}
-									<span className='badge bg-info'>Rs {price}</span>
+									<span className='badge bg-info'>Tk. {price}</span>
 								</h6>
 								<h6 className='font-weight-bold'>
 									Total Price to be paid :{' '}
-									<span className='text-primary'>Rs {daysLeft * price}</span>
+									<span className='text-primary'>Tk. {daysLeft * price}</span>
 								</h6>
 							</div>
 						</div>
