@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FaAlignRight } from 'react-icons/fa';
 import { Logout } from '../auth/logout';
 
@@ -8,7 +8,9 @@ const Navbar = ({ user }) => {
 		<>
 			<nav className='navbar navbar-expand-sm navbar-dark bg-dark py-2 fixed-top px-5'>
 				<div className='container-fluid '>
-					<span className='navbar-brand font-weight-bolder'>RentACar</span>
+					<Link to={'/'} className='navbar-brand font-weight-bolder'>
+						RentACar
+					</Link>
 					<a
 						href='void(0)'
 						className='navbar-toggler border-0'

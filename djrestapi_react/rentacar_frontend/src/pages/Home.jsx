@@ -9,7 +9,7 @@ const Home = () => {
 
 	// useEffect(() => {
 	// 	axios
-	// 		.get('http://127.0.0.1:8000/api/car', {
+	// 		.get('https://demo.rabbi.my.id/api/car', {
 	// 			'Content-Type': 'application/json',
 	// 		})
 	// 		.then((response) => {
@@ -21,7 +21,7 @@ const Home = () => {
 	// const filterCars = (e) => {
 	// 	setSearchedText(e.target.value);
 	// 	axios
-	// 		.get(`http://127.0.0.1:8000/api/car?search=${searchedText}`, {
+	// 		.get(`https://demo.rabbi.my.id/api/car?search=${searchedText}`, {
 	// 			'content-type': 'multipart/form-data',
 	// 		})
 	// 		.then((response) => {
@@ -32,7 +32,7 @@ const Home = () => {
 
 	useEffect(() => {
 		axios
-			.get(`http://127.0.0.1:8000/api/car?search=${searchedText}`, {
+			.get(`https://demo.rabbi.my.id/api/car?search=${searchedText}`, {
 				'Content-Type': 'application/json',
 			})
 			.then((response) => {

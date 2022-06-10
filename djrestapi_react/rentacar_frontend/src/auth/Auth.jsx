@@ -11,7 +11,7 @@ export const getAuthUser = async (setUser) => {
 	};
 	if (token && userId) {
 		await axios
-			.get(`http://127.0.0.1:8000/api/user/${userId}`, authHeader)
+			.get(`https://demo.rabbi.my.id/api/user/${userId}`, authHeader)
 			.then((response) => {
 				setUser(response.data);
 			});

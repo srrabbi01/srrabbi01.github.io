@@ -20,7 +20,7 @@ function RentCar() {
 
 	useEffect(() => {
 		axios
-			.get(`http://127.0.0.1:8000/api/car/${id}`, {
+			.get(`https://demo.rabbi.my.id/api/car/${id}`, {
 				'content-type': 'multipart/form-data',
 			})
 			.then((response) => setCar(response.data));
@@ -42,9 +42,8 @@ function RentCar() {
 				},
 			};
 			axios
-				.post('http://127.0.0.1:8000/api/rentcar/', formData, config)
+				.post('https://demo.rabbi.my.id/api/rentcar/', formData, config)
 				.then((response) => {
-					console.log(response);
 					toast.success('Car Rented successfully');
 					navigate('/');
 				})

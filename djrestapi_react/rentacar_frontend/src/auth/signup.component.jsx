@@ -24,13 +24,13 @@ const SignUp = () => {
 	};
 	const handleSignup = async (e) => {
 		e.preventDefault();
-		let carurl = 'http://127.0.0.1:8000/api/user/';
+		let carurl = 'https://demo.rabbi.my.id/api/user/';
 		axios
 			.post(carurl, authData, header)
 			.then((response) => {
 				toast.success('Account created in successfully');
 				axios
-					.post('http://127.0.0.1:8000/api/token', authData, header)
+					.post('https://demo.rabbi.my.id/api/token', authData, header)
 					.then((response) => {
 						if (response.status === 200) {
 							const token = response.data.access;

@@ -30,7 +30,7 @@ function CarDetailsPage() {
 
 	useEffect(() => {
 		axios
-			.get(`http://127.0.0.1:8000/api/car/${id}`, {
+			.get(`https://demo.rabbi.my.id/api/car/${id}`, {
 				'content-type': 'multipart/form-data',
 			})
 			.then((response) => setCar(response.data));

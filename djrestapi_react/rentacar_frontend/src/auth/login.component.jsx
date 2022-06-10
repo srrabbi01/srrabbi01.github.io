@@ -23,7 +23,7 @@ const Login = () => {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		let carurl = 'http://127.0.0.1:8000/api/token';
+		let carurl = 'https://demo.rabbi.my.id/api/token';
 		axios
 			.post(carurl, authData, header)
 			.then((response) => {

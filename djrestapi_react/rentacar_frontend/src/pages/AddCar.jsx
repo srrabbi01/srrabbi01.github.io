@@ -24,7 +24,7 @@ const AddCarPage = () => {
 		};
 
 		axios
-			.post('http://127.0.0.1:8000/api/car/', formData, config)
+			.post('https://demo.rabbi.my.id/api/car/', formData, config)
 			.then((response) => {
 				toast.success('Car added successfully');
 				navigate('/');
