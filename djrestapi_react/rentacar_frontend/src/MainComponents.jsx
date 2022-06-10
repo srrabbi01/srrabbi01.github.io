@@ -9,12 +9,6 @@ import CarDetailsPage from './pages/CarDetails';
 import Home from './pages/Home';
 import RentCar from './pages/RentCar';
 import { PrivateRoute } from './Routes/privateRoutes';
-// import Rooms from './pages/Rooms';
-// import RoomDetails from './pages/RoomDetails';
-// import BookRoom from './pages/BookRoom';
-// import Navbar from './components/Navbar';
-// import Error from './pages/Error';
-// import { PrivateRoute } from './Routes/privateRoutes';
 
 const MainComponents = () => {
 	const [user, setUser] = useState(null);

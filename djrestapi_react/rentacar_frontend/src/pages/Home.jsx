@@ -51,17 +51,13 @@ const Home = () => {
 					onChange={(e) => setSearchedText(e.target.value)}
 					value={searchedText}
 				/>
-				<button className='btn btn-outline-success' type='submit'>
+				<button className='btn btn-outline-success' type='button'>
 					Search
 				</button>
 			</form>
 			<section className='featured-rooms container h-100'>
-				<h2 className='mb-3'>Featured Cars</h2>
-				{cars.length > 0 ? (
-					<CarsList cars={cars} />
-				) : (
-					<h1 className='mt-5'>Nothing found !!!</h1>
-				)}
+				<h2 className='mb-3 text-center'>Featured Cars</h2>
+				{cars.length > 0 ? <CarsList cars={cars} /> : <EmptyList />}
 			</section>
 		</>
 	);

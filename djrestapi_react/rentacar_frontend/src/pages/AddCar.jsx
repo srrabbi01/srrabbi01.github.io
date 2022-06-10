@@ -26,7 +26,6 @@ const AddCarPage = () => {
 		axios
 			.post('http://127.0.0.1:8000/api/car/', formData, config)
 			.then((response) => {
-				console.log(response);
 				toast.success('Car added successfully');
 				navigate('/');
 			})
@@ -66,6 +65,9 @@ const AddCarPage = () => {
 						<option value=''>Select Brand</option>
 						<option value='Toyota'>Toyota</option>
 						<option value='Ford'>Ford</option>
+						<option value='Honda'>Honda</option>
+						<option value='Hyundai'>Hyundai</option>
+						<option value='Chevrolet'>Chevrolet</option>
 						<option value='Others'>Others</option>
 					</select>
 					<input

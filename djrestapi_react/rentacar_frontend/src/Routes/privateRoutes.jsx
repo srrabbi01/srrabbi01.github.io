@@ -20,7 +20,6 @@ export const PrivateRoute = ({ children }) => {
 			await axios
 				.get(`http://127.0.0.1:8000/api/user/${userId}`, authHeader)
 				.then((response) => {
-					console.log(response);
 					if (response.status === 200) {
 						setUser(response.data);
 					}

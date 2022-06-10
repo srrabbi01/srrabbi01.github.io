@@ -223,7 +223,7 @@ body {
 	background-color: #1a1a1d !important;
 }
 .App {
-	text-align: center;
+	/* text-align: center; */
 	color: #fff;
 	min-height: 100vh;
 	/* margin-top: 70px; */

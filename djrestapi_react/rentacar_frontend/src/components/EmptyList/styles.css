@@ -1,8 +1,9 @@
 .emptyList-wrap {
 	display: flex;
 	justify-content: center;
-	margin-top: calc(50vh - 125px);
+	margin-top: 8rem;
 	align-items: center;
+	flex-direction: column;
 }
 .emptyList-wrap img {
 	max-width: 250px;

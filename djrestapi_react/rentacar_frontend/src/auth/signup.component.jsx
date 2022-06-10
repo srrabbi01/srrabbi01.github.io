@@ -1,50 +1,16 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import React, { useState } from 'react';
-// import {
-// 	createUserWithEmailAndPassword,
-// 	onAuthStateChanged,
-// } from 'firebase/auth';
-// import { auth } from '../firebase-config';
-// import { loginUser } from '../redux/actions';
-// import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 const SignUp = () => {
 	const [registerEmail, setRegisterEmail] = useState('');
 	const [registerPassword, setRegisterPassword] = useState('');
 	const [registerRole, setRegisterRole] = useState('');
 	const [error, setError] = useState('');
-	// const user = useSelector((state) => state.user);
-	// const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	// const register = async () => {
-	// 	try {
-	// 		const user = await createUserWithEmailAndPassword(
-	// 			auth,
-	// 			registerEmail,
-	// 			registerPassword,
-	// 		);
-	// 		if (user) {
-	// 			setError('');
-	// 			return navigate('/');
-	// 		}
-	// 	} catch (error) {
-	// 		if (error.code === 'auth/invalid-email') {
-	// 			setError('Invalid Email Entered !!!');
-	// 		} else if (error.code === 'auth/weak-password') {
-	// 			setError('Password should be at least 6 characters !!!');
-	// 		} else if (error.code === 'auth/email-already-in-use') {
-	// 			setError('Account already exist !!!');
-	// 		} else if (error.code === 'auth/internal-error') {
-	// 			setError('Username or Password Empty !!!');
-	// 		} else console.log(error);
-	// 	}
-	// };
-
-	// onAuthStateChanged(auth, (currentUser) => {
-	// 	dispatch(loginUser(currentUser));
-	// });
 	const authData = {
 		email: registerEmail,
 		password: registerEmail,
@@ -62,32 +28,29 @@ const SignUp = () => {
 		axios
 			.post(carurl, authData, header)
 			.then((response) => {
-				console.log(response.data);
-				// if (response.status === 200) {
-				// 	const token = response.data.access;
-				// 	const authDecoded = jwtDecode(token);
-				// 	localStorage.setItem('access_token', token);
-				// 	localStorage.setItem('user_id', authDecoded.user_id);
-				// 	navigate('/');
-				// }
+				toast.success('Account created in successfully');
 				axios
 					.post('http://127.0.0.1:8000/api/token', authData, header)
 					.then((response) => {
-						console.log(response);
 						if (response.status === 200) {
 							const token = response.data.access;
 							const authDecoded = jwtDecode(token);
 							localStorage.setItem('access_token', token);
 							localStorage.setItem('user_id', authDecoded.user_id);
+							toast.success('Account logged in successfully');
 							navigate('/');
 						}
 					})
 					.catch((error) => {
-						console.log(error.response.data);
+						for (const [key, value] of Object.entries(error.response.data)) {
+							toast.error(String(value));
+						}
 					});
 			})
 			.catch((error) => {
-				console.log(error.response.data);
+				for (const [key, value] of Object.entries(error.response.data)) {
+					toast.error(String(value));
+				}
 			});
 	};
 	return (

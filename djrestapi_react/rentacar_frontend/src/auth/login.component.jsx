@@ -3,39 +3,12 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
+import { toast } from 'react-toastify';
 const Login = () => {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 	const [error, setError] = useState('');
-	// const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	// const login = async () => {
-	// 	try {
-	// 		const user = await signInWithEmailAndPassword(
-	// 			auth,
-	// 			loginEmail,
-	// 			loginPassword,
-	// 		);
-	// 		if (user) {
-	// 			setError('');
-	// 			return navigate('/');
-	// 		}
-	// 	} catch (error) {
-	// 		if (error.code === 'auth/invalid-email') {
-	// 			setError('Invalid Email Entered !!!');
-	// 		} else if (error.code === 'auth/user-not-found') {
-	// 			setError('Email not found !!!');
-	// 		} else if (error.code === 'auth/wrong-password') {
-	// 			setError('Wrong Password Entered !!!');
-	// 		} else if (error.code === 'auth/internal-error') {
-	// 			setError('Username or Password Empty !!!');
-	// 		} else console.log(error);
-	// 	}
-	// };
-	// onAuthStateChanged(auth, (currentUser) => {
-	// 	dispatch(loginUser(currentUser));
-	// });
 
 	const authData = {
 		email: loginEmail,
@@ -54,17 +27,19 @@ const Login = () => {
 		axios
 			.post(carurl, authData, header)
 			.then((response) => {
-				console.log(response);
 				if (response.status === 200) {
 					const token = response.data.access;
 					const authDecoded = jwtDecode(token);
 					localStorage.setItem('access_token', token);
 					localStorage.setItem('user_id', authDecoded.user_id);
+					toast.success('Account logged in successfully');
 					navigate('/');
 				}
 			})
 			.catch((error) => {
-				console.log(error.response.data);
+				for (const [key, value] of Object.entries(error.response.data)) {
+					toast.error(String(value));
+				}
 			});
 	};
 
