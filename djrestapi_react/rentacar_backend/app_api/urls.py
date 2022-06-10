@@ -9,10 +9,10 @@ from rest_framework_simplejwt.views import (
 
 router = DefaultRouter()
 router.register(r'user',UserViewSet)
-router.register(r'car',CarViewSet)
-router.register(r'rentcar',RentCarViewSet)
+router.register(r'car',CarViewSet,basename='car')
+router.register(r'rentcar',RentCarViewSet,basename='rentcars')
 
 urlpatterns = [
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 ] + router.urls

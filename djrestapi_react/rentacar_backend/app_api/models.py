@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -7,7 +8,7 @@ from django.contrib.auth.models import (
 
 # Create your models here.
 class UserProfileManager(BaseUserManager):
-    def create_user(self, email,role, password=None):
+    def create_user(self, email,role=None, password=None):
         if not email:
             raise ValueError("User must have email!")
 
@@ -48,11 +49,14 @@ class Car(models.Model):
     owner = models.ForeignKey(UserProfile,on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=255,null=True)
     brand = models.CharField(max_length=255,null=True)
-    color = models.CharField(max_length=255,null=True)
     daily_price = models.FloatField(default=0,null=True)
+    images = models.ImageField(upload_to='car_images/',null=True)
     description = models.TextField(null=True)
 
 
 class RentCar(models.Model):
     car = models.ForeignKey(Car,on_delete=models.CASCADE,null=True)
     customer = models.ForeignKey(UserProfile,on_delete=models.CASCADE,null=True)
+    email = models.CharField(max_length=255,null=True)
+    phone = models.CharField(max_length=255,null=True)
+    rent_date = models.DateField(null=True)
