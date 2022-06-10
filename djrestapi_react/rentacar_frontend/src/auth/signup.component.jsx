@@ -13,7 +13,7 @@ const SignUp = () => {
 
 	const authData = {
 		email: registerEmail,
-		password: registerEmail,
+		password: registerPassword,
 		role: registerRole,
 	};
 

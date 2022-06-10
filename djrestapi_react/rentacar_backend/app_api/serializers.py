@@ -7,16 +7,16 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['id','email','password','role']
-        extra_kwargs = {'password': {'write_only': True}}
+        # extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         user = UserProfile.objects.create_user(email=validated_data['email'],role=validated_data['role'],password=validated_data['password'])
         return user
 
-    def update(self, instance, validated_data):
-        instance.set_password(validated_data['password'])
-        instance.save()
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.set_password(validated_data['password'])
+    #     instance.save()
+    #     return instance
 
 
 class CarSerializer(ModelSerializer):
