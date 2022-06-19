@@ -1,31 +1,31 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, ScrollView } from 'react-native';
-import { AddTransaction } from './components/AddTransaction';
-import { Balance } from './components/Balance';
-import { Header } from './components/Header';
-import { IncomeExpenses } from './components/IncomeExpenses';
-import { styles } from './components/styles';
-import { TransactionList } from './components/TransactionList';
+import React, { useEffect, useState } from 'react';
+import CustomSidebarMenu from './navigation/CustomSidebarMenu';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { FontAwesome5 } from '@expo/vector-icons';
+import HomeScreen from './screens/HomeScreen';
+
+const Drawer = createDrawerNavigator();
 
 export const MainComponent = () => {
-	const onPressLearnMore = () => {};
 	return (
-		<ScrollView>
-			<View style={styles.container}>
-				<Header />
-				<Balance />
-				<IncomeExpenses />
-				<AddTransaction />
-				<StatusBar style='auto' />
-				<Button
-					onPress={onPressLearnMore}
-					title='Add Transaction'
-					color='#444'
-					accessibilityLabel='Learn more about this purple button'
-				/>
-				<TransactionList />
-			</View>
-		</ScrollView>
+		<Drawer.Navigator
+			initialRouteName='home'
+			screenOptions={{
+				activeTintColor: '#e91e63',
+				itemStyle: { marginVertical: 5 },
+			}}
+			drawerContent={(props) => <CustomSidebarMenu {...props} />}>
+			<Drawer.Screen
+				name='home'
+				component={HomeScreen}
+				options={{
+					drawerLabel: 'Home',
+					title: 'Home',
+					drawerIcon: (focused) => (
+						<FontAwesome5 name='home' size={16} color='blue' />
+					),
+				}}
+			/>
+		</Drawer.Navigator>
 	);
 };

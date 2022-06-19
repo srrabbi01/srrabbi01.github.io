@@ -1,64 +1,66 @@
-import React, { useState, useContext } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Button, Text, TextInput, View } from 'react-native';
 import { styles } from './styles';
-// import { GlobalContext } from '../context/GlobalState';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase.config';
+import AuthContext from '../context/AuthContext';
+import TransactionContext from '../context/TransactionContext';
+import LoadingScreen from '../screens/LoadingScreen';
 
 export const AddTransaction = () => {
 	const [text, setText] = useState('');
 	const [amount, setAmount] = useState(0);
+	const { user } = useContext(AuthContext);
+	const { getTransactions, setTransactLoading } =
+		useContext(TransactionContext);
 
-	// const { addTransaction } = useContext(GlobalContext);
-
-	const onSubmit = (e) => {
-		// e.preventDefault();
-		// const newTransaction = {
-		// 	id: Math.floor(Math.random() * 100000000),
-		// 	text,
-		// 	amount: +amount,
-		// };
-		// addTransaction(newTransaction);
+	const handleSubmit = async () => {
+		setTransactLoading(true);
+		await addDoc(collection(db, 'transaction'), {
+			userId: user.uid,
+			text: text,
+			amount: parseFloat(amount),
+			createdAt: new Date(),
+		});
+		setText('');
+		setAmount(0);
+		getTransactions();
+		setTransactLoading(false);
+		alert('Transactions add successfully');
 	};
-
+	
 	return (
 		<>
 			<Text style={[styles.sectionTitle, styles.h3]}>Add new transaction</Text>
 			<View>
 				<View>
 					<Text style={styles.label}>Text</Text>
-					<TextInput style={[styles.input]} placeholder='Enter text...' />
+					<TextInput
+						value={text}
+						onChangeText={(value) => setText(value)}
+						style={[styles.input]}
+						placeholder='Enter text...'
+					/>
 				</View>
 				<View>
 					<Text style={styles.label}>
 						amount{'\n'}(negative - expense, positive - income)
 					</Text>
-					<TextInput style={[styles.input]} placeholder='Enter amount...' />
-				</View>
-			</View>
-			{/* <form onSubmit={onSubmit}>
-				<div className='form-control'>
-					<label htmlFor='text'>Text</label>
-					<input
-						type='text'
-						value={text}
-						onChange={(e) => setText(e.target.value)}
-						placeholder='Enter text...'
-					/>
-				</div>
-				<div className='form-control'>
-					<label htmlFor='amount'>
-						Amount <br />
-						(negative - expense, positive - income)
-					</label>
-					
-					<input
-						type='number'
-						value={amount}
-						onChange={(e) => setAmount(e.target.value)}
+					<TextInput
+						keyboardType='numeric'
+						value={amount.toString()}
+						onChangeText={(value) => setAmount(value)}
+						style={[styles.input]}
 						placeholder='Enter amount...'
 					/>
-				</div>
-				<button className='btn'>Add transaction</button>
-			</form> */}
+				</View>
+			</View>
+			<Button
+				onPress={handleSubmit}
+				title='Add Transaction'
+				color='#444'
+				accessibilityLabel='Learn more about this purple button'
+			/>
 		</>
 	);
 };

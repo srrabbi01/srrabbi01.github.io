@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
 		// alignItems: 'center',
 		// justifyContent: 'flex-start',
 		padding: 15,
-		paddingTop: 50,
+		// paddingTop: 50,
 	},
 	h1: {
 		fontSize: 32,
@@ -32,6 +32,9 @@ export const styles = StyleSheet.create({
 	h5: {
 		fontSize: 12,
 		fontWeight: '600',
+	},
+	m0: {
+		margin: 0,
 	},
 	mt1: {
 		marginTop: 10,
@@ -111,5 +114,13 @@ export const styles = StyleSheet.create({
 		padding: 10,
 		marginTop: 10,
 		// marginBottom: 10,
+	},
+	listMinus: {
+		borderColor: '#c0392b',
+		borderEndWidth: 5,
+	},
+	listPlus: {
+		borderColor: '#2ecc71',
+		borderEndWidth: 5,
 	},
 });
