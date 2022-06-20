@@ -2,7 +2,7 @@ import React from 'react';
 import LottieView from 'lottie-react-native';
 import { View } from 'react-native-web';
 
-export const BasicExample = () => {
+export const TransLoading = () => {
 	return (
 		<LottieView
 			source={require('../../assets/animations.json')}

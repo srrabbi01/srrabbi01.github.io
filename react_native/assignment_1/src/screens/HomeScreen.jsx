@@ -9,7 +9,10 @@ import { TransactionList } from '../components/TransactionList';
 
 import AuthContext from '../context/AuthContext';
 import TransactionContext from '../context/TransactionContext';
-import { BasicExample } from '../components/Loading';
+import { TransLoading } from '../components/Loading';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+// const Tab = createBottomTabNavigator();
 
 const HomeScreen = () => {
 	const { transactLoading, getTransactions } = useContext(TransactionContext);
@@ -18,13 +21,11 @@ const HomeScreen = () => {
 		getTransactions();
 	}, []);
 
-	if (transactLoading) return <BasicExample />;
+	if (transactLoading) return <TransLoading />;
 
 	return (
 		<ScrollView>
 			<View style={styles.container}>
-				{/* <Header /> */}
-
 				<Balance />
 				<IncomeExpenses />
 				<AddTransaction />
@@ -33,5 +34,19 @@ const HomeScreen = () => {
 		</ScrollView>
 	);
 };
+
+// export default HomeScreen = () => {
+// 	return (
+// 		<Tab.Navigator
+// 			screenOptions={{
+// 				headerShown: true,
+// 				tabBarStyle: { position: 'absolute' },
+// 			}}>
+// 			<Tab.Screen name='index' component={Home} />
+// 			<Tab.Screen name='add' component={Home} />
+// 			{/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
+// 		</Tab.Navigator>
+// 	);
+// };
 
 export default HomeScreen;

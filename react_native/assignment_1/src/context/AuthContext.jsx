@@ -1,4 +1,7 @@
+import { signOut } from 'firebase/auth';
 import React, { createContext, useState } from 'react';
+import { Alert } from 'react-native';
+import { auth } from '../../firebase.config';
 
 const AuthContext = createContext();
 

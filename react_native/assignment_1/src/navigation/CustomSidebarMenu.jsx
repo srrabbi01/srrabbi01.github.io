@@ -39,24 +39,24 @@ const CustomSidebarMenu = (props) => {
 	const proileImage = 'react_logo.png';
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, padding: 5 }}>
 			<DrawerContentScrollView {...props}>
 				<View style={styles.drawerContent}>
 					<View style={styles.userInfoSection}>
-						<View style={{ flexDirection: 'row', marginTop: 15 }}>
+						<View style={{ marginTop: 15 }}>
 							<Avatar.Image
 								source={{
-									uri: 'https://api.adorable.io/avatars/50/abott@adorable.png',
+									uri: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80',
 								}}
-								size={50}
+								size={100}
 							/>
-							<View style={{ marginLeft: 15, flexDirection: 'column' }}>
+							<View style={{ marginTop: 10, flexDirection: 'column' }}>
 								<Title style={styles.title}>{user.displayName}</Title>
 								<Caption style={styles.caption}>{user.email}</Caption>
 							</View>
 						</View>
 
-						<View style={styles.row}>
+						{/* <View style={styles.row}>
 							<View style={styles.section}>
 								<Paragraph style={[styles.paragraph, styles.caption]}>
 									80
@@ -69,40 +69,28 @@ const CustomSidebarMenu = (props) => {
 								</Paragraph>
 								<Caption style={styles.caption}>Followers</Caption>
 							</View>
-						</View>
+						</View> */}
 					</View>
 					<Drawer.Section style={styles.drawerSection}>
-						<DrawerItem
-							icon={({ color, size }) => (
+						<DrawerItemList {...props} />
+						{/* <DrawerItem
+							icon={({ focused, color, size }) => (
 								<MaterialCommunityIcons
-									name='home-outline'
+									name={focused ? 'home-outline' : 'home'}
 									color={color}
 									size={size}
 								/>
 							)}
+							activeTintColor='red'
+							activeBackgroundColor='blue'
 							label='Home'
 							onPress={() => {
-								props.navigation.navigate('Home');
+								props.navigation.navigate('home');
 							}}
-						/>
-						<DrawerItem
-							icon={({ color, size }) => (
-								<MaterialCommunityIcons
-									name='bookmark-outline'
-									color={color}
-									size={size}
-								/>
-							)}
-							label='Bookmarks'
-							onPress={() => {
-								props.navigation.navigate('BookmarkScreen');
-							}}
-						/>
+						/> */}
 					</Drawer.Section>
-					<Drawer.Section>
-						<DrawerItemList {...props} />
-					</Drawer.Section>
-					<Drawer.Section title='Preferences'>
+
+					{/* <Drawer.Section title='Preferences'>
 						<TouchableRipple onPress={() => {}}>
 							<View style={styles.preference}>
 								<Text>Dark Theme</Text>
@@ -111,26 +99,28 @@ const CustomSidebarMenu = (props) => {
 								</View>
 							</View>
 						</TouchableRipple>
-					</Drawer.Section>
+					</Drawer.Section> */}
 					{/* <DrawerItem
 					label='Visit Us'
 					onPress={() => Linking.openURL('https://aboutreact.com/')}
 				/> */}
 				</View>
 			</DrawerContentScrollView>
-			<Drawer.Section style={styles.bottomDrawerSection}>
-				<DrawerItem
-					icon={({ color, size }) => (
-						<MaterialCommunityIcons
-							name='exit-to-app'
-							color={color}
-							size={size}
-						/>
-					)}
-					label='Sign Out'
-					onPress={() => handleLogout(props.navigation)}
-				/>
-			</Drawer.Section>
+			<DrawerItem
+				icon={({ color, size }) => (
+					<MaterialCommunityIcons
+						name='exit-to-app'
+						color={color}
+						size={size}
+					/>
+				)}
+				label='Sign Out'
+				onPress={() => handleLogout(props.navigation)}
+				style={{ padding: 0 }}
+			/>
+			{/* <Drawer.Section style={styles.bottomDrawerSection}>
+				
+			</Drawer.Section> */}
 		</View>
 	);
 };
@@ -140,7 +130,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	userInfoSection: {
-		paddingLeft: 20,
+		paddingHorizontal: 10,
 	},
 	title: {
 		fontSize: 16,
@@ -166,10 +156,10 @@ const styles = StyleSheet.create({
 		marginRight: 3,
 	},
 	drawerSection: {
-		marginTop: 15,
+		marginTop: 30,
 	},
 	bottomDrawerSection: {
-		marginBottom: 15,
+		marginBottom: -5,
 		borderTopColor: '#f4f4f4',
 		borderTopWidth: 1,
 	},
@@ -178,19 +168,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		paddingVertical: 12,
 		paddingHorizontal: 16,
-	},
-	sideMenuProfileIcon: {
-		resizeMode: 'center',
-		width: 150,
-		height: 100,
-		borderRadius: 100 / 2,
-		// alignSelf: 'center',
-		marginTop: 50,
-	},
-	iconStyle: {
-		width: 15,
-		height: 15,
-		marginHorizontal: 5,
 	},
 });
 
