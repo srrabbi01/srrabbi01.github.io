@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
+import './ignoreWarnings';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { MainComponent } from './src/MainComponent';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import './ignoreWarnings';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -41,16 +41,7 @@ export default function App() {
 		</AuthProvider>
 	);
 }
-{
-	/* <Stack.Navigator>
-				<Stack.Screen
-					// options={{ headerShown: false }}
-					name='Login'
-					component={LoginScreen}
-				/>
-				<Stack.Screen name='Home' component={MainComponent} />
-			</Stack.Navigator> */
-}
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

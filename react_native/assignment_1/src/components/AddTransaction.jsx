@@ -44,7 +44,7 @@ export const AddTransaction = () => {
 				</View>
 				<View>
 					<Text style={styles.label}>
-						amount{'\n'}(negative - expense, positive - income)
+						Amount{'\n'}(negative - expense, positive - income)
 					</Text>
 					<TextInput
 						keyboardType='numeric'
