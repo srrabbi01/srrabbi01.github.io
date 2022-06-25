@@ -95,7 +95,7 @@ export const MainComponent = () => {
 					},
 				}}
 			/>
-			<Drawer.Screen
+			{/* <Drawer.Screen
 				name='addbook'
 				component={AddBookScreen}
 				options={{
@@ -114,7 +114,7 @@ export const MainComponent = () => {
 						paddingHorizontal: 5,
 					},
 				}}
-			/>
+			/> */}
 			<Drawer.Screen
 				name='detailsbook'
 				component={DetailsBookScreen}

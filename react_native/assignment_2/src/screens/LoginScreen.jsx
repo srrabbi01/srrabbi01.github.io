@@ -7,6 +7,7 @@ import {
 
 import React, { useContext, useEffect, useState } from 'react';
 import {
+	Image,
 	KeyboardAvoidingView,
 	StyleSheet,
 	Text,
@@ -60,7 +61,11 @@ const LoginScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.container}>
-			<Text style={styles.greeting}>Hello again,{'\n'}Welcome back.</Text>
+			<Image
+				source={require('../../assets/book.png')}
+				style={{ height: 100, width: 100 }}
+			/>
+			<Text style={styles.greeting}>Welcome back.</Text>
 			<View style={styles.errorMessage}>
 				{errorMessage && <Text style={styles.error}>{errorMessage}</Text>}
 			</View>
@@ -74,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
 						style={styles.input}
 					/>
 				</View>
-				<View style={{ marginTop: 24 }}>
+				<View style={{ marginTop: 18 }}>
 					<Text style={styles.inputTitle}>Password</Text>
 					<TextInput
 						placeholder=''
@@ -92,7 +97,7 @@ const LoginScreen = ({ navigation }) => {
 				style={{ alignSelf: 'center', marginTop: 32 }}
 				onPress={() => navigation.navigate('signup')}>
 				<Text style={{ fontSize: 14, color: '#414959' }}>
-					New in BgTrack?{' '}
+					New in BookReview?{' '}
 					<Text style={{ fontWeight: '600', color: '#0782F9' }}>Sign Up</Text>
 				</Text>
 			</TouchableOpacity>

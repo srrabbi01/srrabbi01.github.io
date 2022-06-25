@@ -8,13 +8,13 @@ import LoadingScreen from '../screens/LoadingScreen';
 import BookContext from '../context/BookContext';
 import { OpLoading } from '../components/OpLoading';
 
-
 export const AddBookScreen = () => {
 	const [booktitle, setBooktitle] = useState('');
 	const [author, setAuthor] = useState('');
+	const [category, setCategory] = useState('');
 	const [image, setImage] = useState('');
 	const { user } = useContext(AuthContext);
-    const { crudLoading, getBooks,setCRUDLoading } = useContext(BookContext);
+	const { crudLoading, getBooks, setCRUDLoading } = useContext(BookContext);
 
 	// const { getTransactions, setTransactLoading } =
 	// 	useContext(TransactionContext);
@@ -25,11 +25,13 @@ export const AddBookScreen = () => {
 			// userId: user.uid,
 			booktitle: booktitle,
 			author: author,
+			category: category,
 			image: image,
 			createdAt: new Date(),
 		});
 		setBooktitle('');
 		setAuthor('');
+		setCategory('');
 		setImage('');
 
 		// getTransactions();
@@ -50,11 +52,21 @@ export const AddBookScreen = () => {
 						placeholder='Enter text...'
 					/>
 				</View>
+
 				<View>
 					<Text style={styles.label}>Author</Text>
 					<TextInput
 						value={author}
 						onChangeText={(value) => setAuthor(value)}
+						style={[styles.input]}
+						placeholder='Enter author name...'
+					/>
+				</View>
+				<View>
+					<Text style={styles.label}>Category</Text>
+					<TextInput
+						value={category}
+						onChangeText={(value) => setCategory(value)}
 						style={[styles.input]}
 						placeholder='Enter author name...'
 					/>

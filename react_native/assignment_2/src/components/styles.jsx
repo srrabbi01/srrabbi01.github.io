@@ -80,12 +80,15 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	bookItemContainer: {
-		width: '48.5%',
+		width: '48%',
 		// marginVertical: '1%',
 		marginBottom: 10,
 		borderColor: '#ccc',
 		borderWidth: 1,
 		padding: 5,
+		borderRadius: 4,
+		textAlign: 'center',
+		alignItems: 'center',
 	},
 	bookImage: {
 		width: '100%',

@@ -18,6 +18,19 @@ export const BookProvider = ({ children }) => {
 		const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 		setBooks(getData);
 	};
+	const getFilteredBooks = async (category) => {
+		if (category == 'All Category') {
+			getBooks();
+		} else {
+			const bookQuery = query(
+				collection(db, 'book'),
+				where('category', '==', category),
+			);
+			const data = await getDocs(bookQuery);
+			const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+			setBooks(getData);
+		}
+	};
 
 	return (
 		<BookContext.Provider
@@ -25,6 +38,7 @@ export const BookProvider = ({ children }) => {
 				books,
 				crudLoading,
 				getBooks,
+				getFilteredBooks,
 				setCRUDLoading,
 			}}>
 			{children}

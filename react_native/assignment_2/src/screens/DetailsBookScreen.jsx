@@ -12,21 +12,27 @@ import {
 } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { styles } from '../components/styles';
-import { TextInput, List, Divider } from 'react-native-paper';
+import {
+	TextInput,
+	List,
+	Divider,
+	ActivityIndicator,
+} from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AuthContext from '../context/AuthContext';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase.config';
 import CommentContext from '../context/CommentContext';
 import { useIsFocused } from '@react-navigation/native';
+import LoadingScreen from './LoadingScreen';
 
 const DetailsBookScreen = ({ route, navigation }) => {
-	const { id, booktitle, author, image } = route.params;
+	const { id, booktitle, author, category, image } = route.params;
 	const [comment, setComment] = useState('');
 	const { user } = useContext(AuthContext);
-	const { comments, getComments } = useContext(CommentContext);
+	const { comments, getComments, loading } = useContext(CommentContext);
 	const isFocused = useIsFocused();
-	
+	// console.log(route.params)
 	useEffect(() => {
 		getComments(id);
 	}, [isFocused]);
@@ -47,7 +53,7 @@ const DetailsBookScreen = ({ route, navigation }) => {
 			alert('Transactions add successfully');
 		} else alert('Comment cannot be empty.');
 	};
-
+	if (loading) return <LoadingScreen />;
 	return (
 		<KeyboardAvoidingView style={{ flex: 1 }} enabled>
 			<ScrollView>
@@ -74,6 +80,21 @@ const DetailsBookScreen = ({ route, navigation }) => {
 									{author}
 								</Text>
 							</Text>
+							<Text
+								style={{
+									fontWeight: '600',
+									marginTop: 5,
+									backgroundColor: '#3F51A5',
+									color: '#fff',
+									padding: 3,
+									paddingHorizontal: 15,
+									textAlign: 'center',
+									marginTop: 5,
+									fontSize: 13,
+									borderRadius: 3,
+								}}>
+								{category}
+							</Text>
 						</View>
 
 						<List.Section style={stylesInt.commentContainer}>
@@ -99,7 +120,7 @@ const DetailsBookScreen = ({ route, navigation }) => {
 						{user ? (
 							<View>
 								<TextInput
-									label='Share your Comment'
+									label='Share your Review'
 									value={comment}
 									style={{ marginVertical: 20 }}
 									onChangeText={(value) => setComment(value)}

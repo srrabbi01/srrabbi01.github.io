@@ -30,11 +30,20 @@ export const BookList = () => {
 
 	return (
 		<>
-			<Text style={[styles.sectionTitle, styles.h3]}>Popular Books</Text>
+			{/* <Text style={[styles.sectionTitle, styles.h3]}>Popular Books</Text> */}
 			<View style={styles.bookContainer}>
-				{books.map((book) => (
-					<Book key={book.id} book={book} deleteBook={deleteBook} />
-				))}
+				{books.length !== 0 ? (
+					books.map((book) => (
+						<Book key={book.id} book={book} deleteBook={deleteBook} />
+					))
+				) : (
+					<View
+						style={{
+							marginTop: 100,
+						}}>
+						<Text>No book found !!!</Text>
+					</View>
+				)}
 			</View>
 		</>
 	);

@@ -6,9 +6,10 @@ const CommentContext = createContext();
 
 export const CommentProvider = ({ children }) => {
 	const [comments, setComments] = useState([]);
-	const [crudLoading, setCRUDLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const getComments = async (bookId) => {
+		setLoading(true)
 		const commentQuery = query(
 			collection(db, 'comment'),
 			where('bookId', '==', bookId),
@@ -17,15 +18,15 @@ export const CommentProvider = ({ children }) => {
 		const data = await getDocs(commentQuery);
 		const getData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 		setComments(getData);
+		setLoading(false)
 	};
 
 	return (
 		<CommentContext.Provider
 			value={{
 				comments,
-				crudLoading,
+				loading,
 				getComments,
-				setCRUDLoading,
 			}}>
 			{children}
 		</CommentContext.Provider>

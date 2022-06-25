@@ -44,10 +44,10 @@ const CustomSidebarMenu = (props) => {
 							/>
 							<View style={{ marginTop: 10, flexDirection: 'column' }}>
 								<Title style={styles.title}>
-									{user ? user.displayName : ''}
+									{user ? user.displayName : 'Anonymous'}
 								</Title>
 								<Caption style={styles.caption}>
-									{user ? user.email : ''}
+									{user ? user.email : 'anonymous@gmail.com'}
 								</Caption>
 							</View>
 						</View>
