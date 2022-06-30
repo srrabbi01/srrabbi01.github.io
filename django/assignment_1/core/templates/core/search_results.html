@@ -1,6 +1,0 @@
-{% load static %}
-{% for video in video_qs %}
-<li class="list-group-item"><a href="{% url 'videoDetails' pk=video.id %}"
-        class="list-group-item-action"><img
-            src="{% if video.thumbnail %}{{ video.thumbnail.url }}{% else %}{% static 'assets/images/youtube-thumb-1.webp' %}{% endif %}" alt=""> {{video.title}}</a></li>
-{% endfor %}
